@@ -10,17 +10,17 @@ namespace TrabalhoASW.Models
     {
         /* Propriedades */
         [Key, Required]
-        int id { get; set; }
+        public int Id { get; set; }
         [Required, MaxLength(60), MinLength(3)]
-        string nome { get; set; }
+        public string nome { get; set; }
         [Required, MaxLength(12), MinLength(12)]
-        string cpf { get; set; }
+        public string cpf { get; set; }
         [Required, EmailAddress, MaxLength(100), MinLength(5)]
-        string email { get; set; }
+        public string email { get; set; }
         [Required, MaxLength(20), MinLength(9)]
-        string telefone { get; set; }
+        public string telefone { get; set; }
         [Required]
-        Endereco endereco { get; set; }
-        ICollection<Matricula> matriculas { get; set; }
+        public Endereco endereco { get; set; }
+        public ICollection<Matricula> matriculas { get; set; }
     }
 }

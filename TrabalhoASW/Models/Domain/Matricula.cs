@@ -10,10 +10,10 @@ namespace TrabalhoASW.Models
     {
         /* Propriedades */
         [Key, Required]
-        int id { get; set; }
+        public int Id { get; set; }
         [Required, MaxLength(15), MinLength(3)]
-        string codigo { get; set; }
+        public string codigo { get; set; }
         [Required]
-        TipoMatricula tipoMatricula { get; set; }
+        public TipoMatricula tipoMatricula { get; set; }
     }
 }

@@ -10,17 +10,17 @@ namespace TrabalhoASW.Models
     {
         /* Propriedades */
         [Key, Required]
-        int id { get; set; }
+        public int Id { get; set; }
         [Required]
-        string codigo { get; set; }
+        public string codigo { get; set; }
         [Required]
-        Periodo periodo { get; set; }
+        public Periodo periodo { get; set; }
         [Required]
-        Turno turno { get; set; }
+        public Turno turno { get; set; }
         [Required]
-        Professor professor { get; set; }
-        ICollection<Aluno> alunos { get; set; }
-        Disciplina disciplina { get; set; }
-        ICollection<Avaliacao> avaliacoes { get; set; }
+        public Professor professor { get; set; }
+        public ICollection<Aluno> alunos { get; set; }
+        public Disciplina disciplina { get; set; }
+        public ICollection<Avaliacao> avaliacoes { get; set; }
     }
 }

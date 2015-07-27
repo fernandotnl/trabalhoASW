@@ -12,14 +12,13 @@ namespace TrabalhoASW.Models
     {
         /* Propriedades */
         [Key, Required]
-        int id { get; set; }
+        public int Id { get; set; }
         [Required]
-        Pessoa pessoa { get; set; }
+        public Pessoa pessoa { get; set; }
         [Required]
-        Curso curso { get; set; }
-        ICollection<Turma> turmas { get; set; }
-        [InverseProperty("aluno")]
-        ICollection<Nota> notas { get; set; }
+        public Curso curso { get; set; }
+        public ICollection<Turma> turmas { get; set; }
+        public ICollection<Nota> notas { get; set; }
 
         /* Métodos */
         public ICollection<Nota> consultarNotasAluno(Aluno aluno)

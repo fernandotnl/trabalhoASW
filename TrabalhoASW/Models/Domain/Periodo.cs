@@ -10,12 +10,12 @@ namespace TrabalhoASW.Models
     {
         /* Propriedades */
         [Key, Required]
-        int id { get; set; }
+        public int Id { get; set; }
         [Required, MaxLength(25), MinLength(3)]
-        string nome { get; set; }
+        public string nome { get; set; }
         [Required]
-        DateTime dataInicio { get; set; }
+        public DateTime dataInicio { get; set; }
         [Required]
-        DateTime dataFim { get; set; }
+        public DateTime dataFim { get; set; }
     }
 }

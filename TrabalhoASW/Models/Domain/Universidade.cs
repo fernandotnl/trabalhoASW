@@ -10,9 +10,9 @@ namespace TrabalhoASW.Models
     {
         /* Propriedades */
         [Key, Required]
-        int id { get; set; }
+        public int Id { get; set; }
         [Required, MaxLength(100), MinLength(5)]
-        string nome { get; set; }
-        ICollection<Curso> cursos { get; set; }
+        public string nome { get; set; }
+        public ICollection<Curso> cursos { get; set; }
     }
 }

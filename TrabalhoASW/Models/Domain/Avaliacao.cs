@@ -11,10 +11,9 @@ namespace TrabalhoASW.Models
     {
         /* Propriedades */
         [Key, Required]
-        int id { get; set; }
+        public int Id { get; set; }
         [Required, MaxLength(50), MinLength(5)]
-        string nome { get; set; }
-        [InverseProperty("avaliacao")]
-        ICollection<Nota> notas { get; set; }
+        public string nome { get; set; }
+        public ICollection<Nota> notas { get; set; }
     }
 }

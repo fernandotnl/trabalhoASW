@@ -10,12 +10,12 @@ namespace TrabalhoASW.Models
     {
         /* Propriedades */
         [Key, Required]
-        int id { get; set; }
+        public int Id { get; set; }
         [Required]
-        Aluno aluno { get; set; }
+        public Aluno aluno { get; set; }
         [Required]
-        Avaliacao avaliacao { get; set; }
+        public Avaliacao avaliacao { get; set; }
         [Required]
-        double valor { get; set; }
+        public double valor { get; set; }
     }
 }
