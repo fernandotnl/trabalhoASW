@@ -11,10 +11,10 @@ namespace TrabalhoASW.Models
     {
         /* Propriedades */
         [Key, Required]
-        public int id { get; set; }
+        public int cursoId { get; set; }
         [Required, MaxLength(100), MinLength(5)]
         public string nome { get; set; }
-        [Required]
+        [Required, InverseProperty("curso")]
         public Coordenador coordenador { get; set; }
         public ICollection<Aluno> alunos { get; set; }
         public ICollection<Professor> professores { get; set; }

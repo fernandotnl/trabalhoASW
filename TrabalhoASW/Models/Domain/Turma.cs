@@ -10,7 +10,7 @@ namespace TrabalhoASW.Models
     {
         /* Propriedades */
         [Key, Required]
-        public int Id { get; set; }
+        public int turmaId { get; set; }
         [Required]
         public string codigo { get; set; }
         [Required]

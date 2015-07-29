@@ -12,7 +12,7 @@ namespace TrabalhoASW.Models
     {
         /* Propriedades */
         [Key, Required]
-        public int Id { get; set; }
+        public int alunoId { get; set; }
         [Required]
         public Pessoa pessoa { get; set; }
         [Required]

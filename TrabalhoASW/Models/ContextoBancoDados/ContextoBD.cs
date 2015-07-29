@@ -22,5 +22,10 @@ namespace TrabalhoASW.Models
         public DbSet<Professor> professores { get; set; }
         public DbSet<Turma> turmas { get; set; }
         public DbSet<Universidade> universidades { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

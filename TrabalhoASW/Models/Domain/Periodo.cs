@@ -10,7 +10,7 @@ namespace TrabalhoASW.Models
     {
         /* Propriedades */
         [Key, Required]
-        public int Id { get; set; }
+        public int priodoId { get; set; }
         [Required, MaxLength(25), MinLength(3)]
         public string nome { get; set; }
         [Required]
