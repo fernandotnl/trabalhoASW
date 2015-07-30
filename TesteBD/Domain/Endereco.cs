@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
-namespace TrabalhoASW.Models
+namespace TesteBD
 {
     [ComplexType]
     public class Endereco

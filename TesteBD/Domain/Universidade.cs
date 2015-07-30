@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace TrabalhoASW.Models
+namespace TesteBD
 {
 
     public class Universidade

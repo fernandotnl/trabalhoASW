@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TrabalhoASW.Models;
 
 namespace TrabalhoASW.Controllers
 {
@@ -10,6 +11,13 @@ namespace TrabalhoASW.Controllers
     {
         public ActionResult Index()
         {
+            using (var context = new ContextoBD())
+            {
+                Universidade uni = new Universidade();
+                uni.nome = "Uni1";
+                context.universidades.Add(uni);
+                context.SaveChanges();
+            }
             return View();
         }
 

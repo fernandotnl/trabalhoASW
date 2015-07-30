@@ -5,9 +5,8 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TrabalhoASW.Models;
 
-namespace TrabalhoASW.Models
+namespace TesteBD
 {
     class ContextoBD : DbContext
     {
@@ -51,16 +50,16 @@ namespace TrabalhoASW.Models
                   .HasMany<Aluno>(t => t.alunos)
                   .WithMany(a => a.turmas)
                   .Map(cs =>
-                  {
-                      cs.MapLeftKey("turmaId");
-                      cs.MapRightKey("alunoId");
-                      cs.ToTable("TurmaAluno");
-                  });
+                   {
+                       cs.MapLeftKey("turmaId");
+                       cs.MapRightKey("alunoId");
+                       cs.ToTable("TurmaAluno");
+                   });
 
-            modelBuilder.Entity<Aluno>()
-                         .HasMany<Nota>(a => a.notas)
-                         .WithRequired(n => n.aluno)
-                         .HasForeignKey(n => n.alunoId);
+           modelBuilder.Entity<Aluno>()
+                        .HasMany<Nota>(a => a.notas)
+                        .WithRequired(n => n.aluno)
+                        .HasForeignKey(n => n.alunoId);
 
             modelBuilder.Entity<Avaliacao>()
                         .HasMany<Nota>(a => a.notas)
@@ -90,13 +89,12 @@ namespace TrabalhoASW.Models
 
             modelBuilder.Entity<Pessoa>()
                     .HasOptional(p => p.professor)
-                    .WithRequired(p => p.pessoa);
+                    .WithRequired(p => p.pessoa); 
 
             base.OnModelCreating(modelBuilder);
         }
-
-        public ContextoBD()
-            : base("BDASW")
+               
+        public ContextoBD(): base("BDASW")
         {
 
         }

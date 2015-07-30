@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TrabalhoASW.Models
 {
-    public class Coordenador : Perfil
+    public class Coordenador 
     {
         /* Propriedades */
         [Key, Required]

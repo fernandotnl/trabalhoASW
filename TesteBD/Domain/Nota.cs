@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace TrabalhoASW.Models
+namespace TesteBD
 {
     public class Nota
     {

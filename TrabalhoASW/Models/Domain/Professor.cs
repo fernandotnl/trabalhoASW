@@ -7,15 +7,18 @@ using System.Threading.Tasks;
 
 namespace TrabalhoASW.Models
 {
-    public class Professor : Perfil
+    public class Professor 
     {
         /* Propriedades */
         [Key, Required]
         public int professorId { get; set; }
         [Required]
         public Pessoa pessoa { get; set; }
+        public int cursoId { get; set; }
         [Required]
         public Curso curso { get; set; }
+
+        public virtual ICollection<Turma> turmas { get; set; }
        
         /* Métodos */
         public ICollection<Nota> consultarNotasAluno(Aluno aluno)

@@ -10,13 +10,6 @@ namespace TrabalhoASW
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            using (var context = new ContextoBD())
-            {
-                Universidade uni = new Universidade();
-                uni.nome = "Uni1";
-                context.universidades.Add(uni);
-                context.SaveChanges();
-            }
         }
     }
 }
