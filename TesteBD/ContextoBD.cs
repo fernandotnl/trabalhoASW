@@ -26,6 +26,7 @@ namespace TesteBD
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
             modelBuilder.Entity<Universidade>()
                         .HasMany<Curso>(u => u.cursos)
@@ -47,16 +48,16 @@ namespace TesteBD
                       .HasForeignKey(p => p.cursoId);
 
             modelBuilder.Entity<Turma>()
-                  .HasMany<Aluno>(t => t.alunos)
-                  .WithMany(a => a.turmas)
-                  .Map(cs =>
-                   {
-                       cs.MapLeftKey("turmaId");
-                       cs.MapRightKey("alunoId");
-                       cs.ToTable("TurmaAluno");
-                   });
+                 .HasMany<Aluno>(t => t.alunos)
+                 .WithMany(a => a.turmas)
+                 .Map(cs =>
+                 {
+                     cs.MapLeftKey("turmaId");
+                     cs.MapRightKey("alunoId");
+                     cs.ToTable("TurmaAluno");
+                 });
 
-           modelBuilder.Entity<Aluno>()
+            modelBuilder.Entity<Aluno>()
                         .HasMany<Nota>(a => a.notas)
                         .WithRequired(n => n.aluno)
                         .HasForeignKey(n => n.alunoId);
@@ -79,17 +80,17 @@ namespace TesteBD
                         .HasOptional(p => p.endereco) // Mark StudentAddress is optional for Student
                         .WithRequired(e => e.pessoa); // Create inverse relationship*/
 
-            modelBuilder.Entity<Pessoa>()
-                    .HasOptional(p => p.aluno)
-                    .WithRequired(a => a.pessoa);
+            modelBuilder.Entity<Aluno>()
+                    .HasRequired(a => a.pessoa)
+                    .WithOptional(p => p.aluno);
 
-            modelBuilder.Entity<Pessoa>()
-                    .HasOptional(p => p.coordenador)
-                    .WithRequired(c => c.pessoa);
+            modelBuilder.Entity<Coordenador>()
+                    .HasRequired(c => c.pessoa)
+                    .WithOptional(p => p.coordenador);
 
-            modelBuilder.Entity<Pessoa>()
-                    .HasOptional(p => p.professor)
-                    .WithRequired(p => p.pessoa); 
+            modelBuilder.Entity<Professor>()
+                    .HasRequired(p => p.pessoa)
+                    .WithOptional(p => p.professor);
 
             base.OnModelCreating(modelBuilder);
         }

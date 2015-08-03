@@ -27,6 +27,7 @@ namespace TrabalhoASW.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
             modelBuilder.Entity<Universidade>()
                         .HasMany<Curso>(u => u.cursos)
@@ -48,15 +49,15 @@ namespace TrabalhoASW.Models
                       .HasForeignKey(p => p.cursoId);
 
             modelBuilder.Entity<Turma>()
-                  .HasMany<Aluno>(t => t.alunos)
-                  .WithMany(a => a.turmas)
-                  .Map(cs =>
-                  {
-                      cs.MapLeftKey("turmaId");
-                      cs.MapRightKey("alunoId");
-                      cs.ToTable("TurmaAluno");
-                  });
-
+                   .HasMany<Aluno>(t => t.alunos)
+                   .WithMany(a => a.turmas)
+                   .Map(cs =>
+                   {
+                       cs.MapLeftKey("turmaId");
+                       cs.MapRightKey("alunoId");
+                       cs.ToTable("TurmaAluno");
+                   });
+           
             modelBuilder.Entity<Aluno>()
                          .HasMany<Nota>(a => a.notas)
                          .WithRequired(n => n.aluno)
@@ -95,8 +96,7 @@ namespace TrabalhoASW.Models
             base.OnModelCreating(modelBuilder);
         }
 
-        public ContextoBD()
-            : base("BDASW")
+        public ContextoBD(): base("BDASW")
         {
 
         }
