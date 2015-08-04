@@ -11,6 +11,7 @@ namespace TesteBD
         public Turma()
         {
             this.alunos = new HashSet<Aluno>();
+            this.avaliacoes = new List<Avaliacao>(); 
         }
 
         /* Propriedades */

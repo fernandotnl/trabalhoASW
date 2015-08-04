@@ -13,7 +13,7 @@ namespace TesteBD
             using (var context = new ContextoBD())
             {
                 Universidade uni = new Universidade();
-                uni.nome = "Uni1";
+                uni.nome = "Universidade1";
                 context.universidades.Add(uni);
                 context.SaveChanges();
             }

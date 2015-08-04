@@ -10,6 +10,12 @@ namespace TrabalhoASW.Models
 {
     public class Aluno 
     {
+
+        public Aluno()
+        {
+            this.turmas = new List<Turma>();
+            this.notas = new List<Nota>();
+        }
         /* Propriedades */
         [Key, Required]
         public int alunoId { get; set; }

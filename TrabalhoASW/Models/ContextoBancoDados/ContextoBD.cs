@@ -35,8 +35,8 @@ namespace TrabalhoASW.Models
                         .HasForeignKey(c => c.universidadeId);
 
             modelBuilder.Entity<Curso>()
-                   .HasOptional(coor => coor.coordenador)
-                   .WithRequired(cur => cur.curso);
+                    .HasOptional(coor => coor.coordenador)
+                    .WithRequired(cur => cur.curso);
 
             modelBuilder.Entity<Curso>()
                        .HasMany<Aluno>(c => c.alunos)
@@ -49,19 +49,19 @@ namespace TrabalhoASW.Models
                       .HasForeignKey(p => p.cursoId);
 
             modelBuilder.Entity<Turma>()
-                   .HasMany<Aluno>(t => t.alunos)
-                   .WithMany(a => a.turmas)
-                   .Map(cs =>
-                   {
-                       cs.MapLeftKey("turmaId");
-                       cs.MapRightKey("alunoId");
-                       cs.ToTable("TurmaAluno");
-                   });
-           
+                 .HasMany<Aluno>(t => t.alunos)
+                 .WithMany(a => a.turmas)
+                 .Map(cs =>
+                 {
+                     cs.MapLeftKey("turmaId");
+                     cs.MapRightKey("alunoId");
+                     cs.ToTable("TurmaAluno");
+                 });
+
             modelBuilder.Entity<Aluno>()
-                         .HasMany<Nota>(a => a.notas)
-                         .WithRequired(n => n.aluno)
-                         .HasForeignKey(n => n.alunoId);
+                        .HasMany<Nota>(a => a.notas)
+                        .WithRequired(n => n.aluno)
+                        .HasForeignKey(n => n.alunoId);
 
             modelBuilder.Entity<Avaliacao>()
                         .HasMany<Nota>(a => a.notas)
@@ -81,22 +81,22 @@ namespace TrabalhoASW.Models
                         .HasOptional(p => p.endereco) // Mark StudentAddress is optional for Student
                         .WithRequired(e => e.pessoa); // Create inverse relationship*/
 
-            modelBuilder.Entity<Pessoa>()
-                    .HasOptional(p => p.aluno)
-                    .WithRequired(a => a.pessoa);
+            modelBuilder.Entity<Aluno>()
+                    .HasRequired(a => a.pessoa)
+                    .WithOptional(p => p.aluno);
 
-            modelBuilder.Entity<Pessoa>()
-                    .HasOptional(p => p.coordenador)
-                    .WithRequired(c => c.pessoa);
+            modelBuilder.Entity<Coordenador>()
+                    .HasRequired(c => c.pessoa)
+                    .WithOptional(p => p.coordenador);
 
-            modelBuilder.Entity<Pessoa>()
-                    .HasOptional(p => p.professor)
-                    .WithRequired(p => p.pessoa);
+            modelBuilder.Entity<Professor>()
+                    .HasRequired(p => p.pessoa)
+                    .WithOptional(p => p.professor);
 
             base.OnModelCreating(modelBuilder);
         }
 
-        public ContextoBD(): base("BDASW")
+        public ContextoBD()
         {
 
         }

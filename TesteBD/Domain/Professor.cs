@@ -9,6 +9,12 @@ namespace TesteBD
 {
     public class Professor 
     {
+
+        public Professor()
+        {
+            this.turmas = new List<Turma>();
+        }
+
         /* Propriedades */
         [Key, Required]
         public int professorId { get; set; }

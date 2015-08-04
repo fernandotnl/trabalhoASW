@@ -33,7 +33,7 @@ namespace TesteBD
                         .WithRequired(c => c.universidade)
                         .HasForeignKey(c => c.universidadeId);
 
-            modelBuilder.Entity<Curso>()
+           modelBuilder.Entity<Curso>()
                    .HasOptional(coor => coor.coordenador)
                    .WithRequired(cur => cur.curso);
 
@@ -71,7 +71,7 @@ namespace TesteBD
                        .HasMany<Turma>(p => p.turmas)
                        .WithRequired(t => t.professor)
                        .HasForeignKey(t => t.professorId);
-
+            
             /*modelBuilder.Entity<Endereco>()
             .HasKey(e => e.pessoaId);
 
@@ -79,7 +79,7 @@ namespace TesteBD
             modelBuilder.Entity<Pessoa>()
                         .HasOptional(p => p.endereco) // Mark StudentAddress is optional for Student
                         .WithRequired(e => e.pessoa); // Create inverse relationship*/
-
+            
             modelBuilder.Entity<Aluno>()
                     .HasRequired(a => a.pessoa)
                     .WithOptional(p => p.aluno);

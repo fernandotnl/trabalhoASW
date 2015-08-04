@@ -9,8 +9,12 @@ namespace TrabalhoASW.Models
 
     public class Universidade
     {
+        public Universidade()
+        {
+            this.cursos = new List<Curso>();
+        }
         /* Propriedades */
-        [Key, Required]
+        [Key]
         public int universidadeId { get; set; }
         [Required, MaxLength(100), MinLength(5)]
         public string nome { get; set; }

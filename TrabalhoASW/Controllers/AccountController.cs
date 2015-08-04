@@ -21,6 +21,7 @@ namespace TrabalhoASW.Controllers
 
         public AccountController()
         {
+            
         }
 
         public AccountController(ApplicationUserManager userManager)

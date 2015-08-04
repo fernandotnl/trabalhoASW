@@ -9,6 +9,11 @@ namespace TesteBD
 {
     public class Curso
     {
+        public Curso()
+        {
+            this.alunos = new List<Aluno>();
+            this.professores = new List<Professor>();
+        }
         /* Propriedades */
         [Key, Required]
         public int cursoId { get; set; }

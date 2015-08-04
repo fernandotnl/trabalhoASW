@@ -9,6 +9,10 @@ namespace TesteBD
 {
     public class Avaliacao
     {
+        public Avaliacao()
+        {
+            this.notas = new List<Nota>();
+        }
         /* Propriedades */
         [Key, Required]
         public int avaliacaoId { get; set; }

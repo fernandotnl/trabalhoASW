@@ -187,7 +187,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ContextoBancoDados\Configuration.cs" />
     <Compile Include="Models\ContextoBancoDados\ContextoBD.cs" />
     <Compile Include="Models\Domain\Aluno.cs" />
     <Compile Include="Models\Domain\Avaliacao.cs" />

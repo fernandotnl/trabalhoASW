@@ -8,6 +8,12 @@ namespace TesteBD
 {
     public class Pessoa
     {
+
+        public Pessoa()
+        {
+            this.matriculas = new List<Matricula>();
+        }
+
         /* Propriedades */
         [Key, Required]
         public int pessoaId { get; set; }
