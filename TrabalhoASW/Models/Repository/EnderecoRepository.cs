@@ -8,7 +8,7 @@ namespace TrabalhoASW.Models.repository
 {
     public class EnderecoRepository : BaseRepository<Endereco>
     {
-        public List<Endereco> buscarTodos()
+        public ICollection<Endereco> buscarTodos()
         {
             return new List<Endereco>();
         }

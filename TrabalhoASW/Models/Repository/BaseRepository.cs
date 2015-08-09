@@ -8,6 +8,6 @@ namespace TrabalhoASW.Models.Repository
 {
     public interface BaseRepository<E>
     {
-        List<E> buscarTodos();
+        ICollection<E> buscarTodos();
     }
 }

@@ -17,8 +17,9 @@ namespace TrabalhoASW.Models
         public string codigo { get; set; }
         [Required]
         public TipoMatricula tipoMatricula { get; set; }
-        public int pessoaId { get; set; }
         [Required]
+        public int pessoaId { get; set; }
+        [ForeignKey("pessoaId")]
         public Pessoa pessoa { get; set; }
     }
 }

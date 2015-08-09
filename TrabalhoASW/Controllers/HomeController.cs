@@ -22,6 +22,7 @@ namespace TrabalhoASW.Controllers
             turma.turmaId = 1;
             ICollection<Nota> notas = notaBusiness.consultarNotasAluno(aluno);
             ICollection<Nota> notas2 = notaBusiness.consultarNotasTurma(turma);
+            ICollection<Nota> notas3 = notaBusiness.consultarNotasAlunoTurma(aluno, turma);
             return View();
         }
 

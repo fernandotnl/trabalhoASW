@@ -8,7 +8,7 @@ namespace TrabalhoASW.Models.repository
 {
     public class TurmaRepository : BaseRepository<Turma>
     {
-        public List<Turma> buscarTodos()
+        public ICollection<Turma> buscarTodos()
         {
             return new List<Turma>();
         }

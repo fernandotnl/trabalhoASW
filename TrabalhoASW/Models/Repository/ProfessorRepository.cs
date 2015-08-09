@@ -8,7 +8,7 @@ namespace TrabalhoASW.Models.repository
 {
     public class ProfessorRepository : BaseRepository<Professor>
     {
-        public List<Professor> buscarTodos()
+        public ICollection<Professor> buscarTodos()
         {
             return new List<Professor>();
         }
