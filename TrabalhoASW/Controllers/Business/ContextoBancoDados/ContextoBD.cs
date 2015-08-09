@@ -51,12 +51,12 @@ namespace TrabalhoASW.Models
             modelBuilder.Entity<Aluno>()
                         .HasMany<Nota>(a => a.notas)
                         .WithRequired(n => n.aluno)
-                        .HasForeignKey(n => n.alunoId);
+                        .HasForeignKey(n => n.alunoId).WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Avaliacao>()
                         .HasMany<Nota>(a => a.notas)
                         .WithRequired(n => n.avaliacao)
-                        .HasForeignKey(n => n.avaliacaoId);
+                        .HasForeignKey(n => n.avaliacaoId).WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Professor>()
                        .HasMany<Turma>(p => p.turmas)
@@ -92,6 +92,11 @@ namespace TrabalhoASW.Models
                         .HasMany<Matricula>(p => p.matriculas)
                         .WithRequired(m => m.pessoa)
                         .HasForeignKey(m => m.pessoaId);//.WillCascadeOnDelete(true);
+           
+            modelBuilder.Entity<Turma>()
+                        .HasMany<Avaliacao>(t => t.avaliacoes)
+                        .WithRequired(a => a.turma)
+                        .HasForeignKey(a => a.turmaId).WillCascadeOnDelete(false);
             base.OnModelCreating(modelBuilder);
         }
 

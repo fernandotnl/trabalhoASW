@@ -10,26 +10,64 @@ namespace TrabalhoASW.Models.repository
 {
     public class NotaRepository : BaseRepository<Nota>
     {
-        ContextoBD contexto;
-
         public List<Nota> buscarTodos()
         {
             return new List<Nota>();
         }
-        public ICollection<Nota> consultarNotasAluno(Aluno aluno)
+        public ICollection<Nota> consultarNotasAluno(Aluno alunoParam)
         {
-            Nota nota = new Nota();
-            /*DbSet<Nota> notas = contexto.notas;
-            DbSet<Aluno> alunos = contexto.alunos;
-            var consulta = from nota in notas 
-                           join aluno2 in alunos on nota.GetAluno().GetId() equals aluno2.GetId()
-                           select nota;*/
+            ICollection<Nota> notasAluno = new List<Nota>();
+            using (var contexto = new ContextoBD())
+            {
+                DbSet<Nota> notas = contexto.notas;
+                DbSet<Aluno> alunos = contexto.alunos;
+                var consulta = from nota in notas
+                               join aluno in alunos on nota.alunoId equals aluno.alunoId
+                               where aluno.alunoId == alunoParam.alunoId
+                               select nota;
+                notasAluno = consulta.ToList<Nota>();
+            }
+            return notasAluno;
+        }
+        public ICollection<Nota> consultarNotasTurma(Turma turmaParam)
+        {
+            ICollection<Nota> notasAluno = new List<Nota>();
+            using (var contexto = new ContextoBD())
+            {
+                DbSet<Nota> notas = contexto.notas;
+                DbSet<Aluno> alunos = contexto.alunos;
+                DbSet<Turma> turmas = contexto.turmas;
+                DbSet<Avaliacao> avaliacoes = contexto.avaliacoes;
+                var consulta = from nota in notas
+                               join avaliacao in avaliacoes on nota.avaliacaoId equals avaliacao.avaliacaoId
+                               join turma in turmas on avaliacao.turmaId equals turma.turmaId
+                               where turma.turmaId == turmaParam.turmaId
+                               select nota;
+                notasAluno = consulta.ToList<Nota>();
+            }
             return new List<Nota>();
         }
-        public ICollection<Nota> consultarNotasTurma(Turma turma)
+
+        public ICollection<Nota> consultarNotasTurma(Turma turmaParam, Aluno alunoParam)
         {
+            ICollection<Nota> notasAluno = new List<Nota>();
+            using (var contexto = new ContextoBD())
+            {
+                DbSet<Nota> notas = contexto.notas;
+                DbSet<Aluno> alunos = contexto.alunos;
+                DbSet<Turma> turmas = contexto.turmas;
+                DbSet<Avaliacao> avaliacoes = contexto.avaliacoes;
+                var consulta = from nota in notas
+                               join aluno in alunos on nota.alunoId equals aluno.alunoId
+                               join avaliacao in avaliacoes on nota.avaliacaoId equals avaliacao.avaliacaoId
+                               join turma in turmas on avaliacao.turmaId equals turma.turmaId
+                               where turma.turmaId == turmaParam.turmaId && aluno.alunoId == alunoParam.alunoId
+                               select nota;
+                notasAluno = consulta.ToList<Nota>();
+            }
             return new List<Nota>();
         }
+
         public ICollection<Nota> consultarNotasDisciplina(Disciplina disciplina)
         {
             return new List<Nota>();

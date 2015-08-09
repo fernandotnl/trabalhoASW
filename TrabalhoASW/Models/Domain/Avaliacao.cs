@@ -19,6 +19,10 @@ namespace TrabalhoASW.Models
         [Required]
         //[Required, MaxLength(50), MinLength(5)]
         public string nome { get; set; }
+        [Required]
+        public int turmaId { get; set; }
+        [ForeignKey("turmaId")]
+        public virtual Turma turma { get; set; }
         public virtual ICollection<Nota> notas { get; set; }
     }
 }

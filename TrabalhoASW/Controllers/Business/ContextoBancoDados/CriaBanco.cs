@@ -286,8 +286,6 @@ namespace TrabalhoASW.Controllers.Business.ContextoBancoDados
                 avaliacao2.notas.Add(nota3);
                 avaliacao2.notas.Add(nota4);
 
-                context.SaveChanges();
-
                 Turma turma1 = new Turma();
                 turma1.codigo = "turma1";
                 turma1.disciplina = disciplina1;
@@ -298,6 +296,7 @@ namespace TrabalhoASW.Controllers.Business.ContextoBancoDados
                 turma1.professor = professor1;
                 turma1.avaliacoes.Add(avaliacao1);
                 turma1.avaliacoes.Add(avaliacao2);
+                
                 context.turmas.Add(turma1);
                 
                 context.SaveChanges();
