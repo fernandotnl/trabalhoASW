@@ -29,20 +29,10 @@ namespace TrabalhoASW.Models
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
-            modelBuilder.Entity<Universidade>()
-                        .HasMany<Curso>(u => u.cursos)
-                        .WithRequired(c => c.universidade)
-                        .HasForeignKey(c => c.universidadeId);
-
             modelBuilder.Entity<Curso>()
-                    .HasOptional(coor => coor.coordenador)
-                    .WithRequired(cur => cur.curso);
-
-            modelBuilder.Entity<Curso>()
-                       .HasMany<Aluno>(c => c.alunos)
-                       .WithRequired(a => a.curso)
-                       .HasForeignKey(a => a.cursoId);
-
+                        .HasRequired<Universidade>(c => c.universidade)
+                        .WithMany(u => u.cursos).HasForeignKey(c => c.universidadeId);
+            
             modelBuilder.Entity<Curso>()
                       .HasMany<Professor>(c => c.professores)
                       .WithRequired(p => p.curso)
@@ -73,32 +63,44 @@ namespace TrabalhoASW.Models
                        .WithRequired(t => t.professor)
                        .HasForeignKey(t => t.professorId);
 
-            /*modelBuilder.Entity<Endereco>()
-            .HasKey(e => e.pessoaId);
-
-            // Configure StudentId as FK for StudentAddress
             modelBuilder.Entity<Pessoa>()
-                        .HasOptional(p => p.endereco) // Mark StudentAddress is optional for Student
-                        .WithRequired(e => e.pessoa); // Create inverse relationship*/
+                    .HasOptional(p => p.aluno).WithOptionalPrincipal(a => a.pessoa)
+                    .WillCascadeOnDelete(true);
 
-            modelBuilder.Entity<Aluno>()
-                    .HasRequired(a => a.pessoa)
-                    .WithOptional(p => p.aluno);
+            modelBuilder.Entity<Pessoa>()
+                   .HasOptional(p => p.coordenador).WithOptionalPrincipal(a => a.pessoa)
+                   .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Pessoa>()
+                   .HasOptional(p => p.professor).WithOptionalPrincipal(a => a.pessoa)
+                   .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Curso>()
+                   .HasOptional(cur => cur.coordenador)
+                   .WithRequired(coor => coor.curso);
 
             modelBuilder.Entity<Coordenador>()
-                    .HasRequired(c => c.pessoa)
-                    .WithOptional(p => p.coordenador);
+                   .HasRequired(coor => coor.curso)
+                   .WithOptional(cur => cur.coordenador);
 
-            modelBuilder.Entity<Professor>()
-                    .HasRequired(p => p.pessoa)
-                    .WithOptional(p => p.professor);
+            /*modelBuilder.Entity<Matricula>()
+                  .HasRequired(m => m.pessoa)
+                  .WithMany(p => p.matriculas).WillCascadeOnDelete(true);
+            */
 
+            modelBuilder.Entity<Pessoa>()
+                        .HasMany<Matricula>(p => p.matriculas)
+                        .WithRequired(m => m.pessoa)
+                        .HasForeignKey(m => m.pessoaId);//.WillCascadeOnDelete(true);
             base.OnModelCreating(modelBuilder);
         }
 
         public ContextoBD()
         {
+            Database.SetInitializer<ContextoBD>(new CreateDatabaseIfNotExists<ContextoBD>());
 
+            //Database.SetInitializer<ContextoBD>(new DropCreateDatabaseIfModelChanges<ContextoBD>());
+            //Database.SetInitializer<ContextoBD>(new DropCreateDatabaseAlways<ContextoBD>());
         }
     }
 }

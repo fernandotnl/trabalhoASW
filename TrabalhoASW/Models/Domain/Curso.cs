@@ -19,9 +19,11 @@ namespace TrabalhoASW.Models
         public int cursoId { get; set; }
         [Required, MaxLength(100), MinLength(5)]
         public string nome { get; set; }
-        [InverseProperty("curso")]
-        public Coordenador coordenador { get; set; }
+        public int coordenadorId { get; set; }
+        [ForeignKey("coordenadorId")]
+        public virtual Coordenador coordenador { get; set; }
         public int universidadeId { get; set; }
+        [ForeignKey("universidadeId")]
         public Universidade universidade { get; set; }
         public virtual ICollection<Aluno> alunos { get; set; }
         public virtual ICollection<Professor> professores { get; set; }

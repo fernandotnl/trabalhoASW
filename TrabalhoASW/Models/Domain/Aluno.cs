@@ -19,12 +19,11 @@ namespace TrabalhoASW.Models
         /* Propriedades */
         [Key, Required]
         public int alunoId { get; set; }
+        public virtual Pessoa pessoa { get; set; }
         [Required]
-        public Pessoa pessoa { get; set; }
-
         public int cursoId { get; set; }
-        [Required]
-        public Curso curso { get; set; }
+        [ForeignKey("cursoId")]
+        public virtual Curso curso { get; set; }
        
         public virtual ICollection<Turma> turmas { get; set; }
         public virtual ICollection<Nota> notas { get; set; }

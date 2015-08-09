@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TrabalhoASW.Controllers.Business.ContextoBancoDados;
 using TrabalhoASW.Models;
 
 namespace TrabalhoASW.Controllers
@@ -11,14 +12,7 @@ namespace TrabalhoASW.Controllers
     {
         public ActionResult Index()
         {
-            using (var context = new ContextoBD())
-            {
-                Universidade uni = new Universidade();
-                uni.nome = "Universidade1";
-                context.universidades.Add(uni);
-                context.SaveChanges();
-                Console.WriteLine("");
-            }
+            CriaBanco cria = new CriaBanco();
             return View();
         }
 

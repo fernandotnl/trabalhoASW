@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,10 +19,10 @@ namespace TrabalhoASW.Models
         /* Propriedades */
         [Key, Required]
         public int professorId { get; set; }
+        public virtual Pessoa pessoa { get; set; }
         [Required]
-        public Pessoa pessoa { get; set; }
         public int cursoId { get; set; }
-        [Required]
+        [ForeignKey("cursoId")]
         public Curso curso { get; set; }
 
         public virtual ICollection<Turma> turmas { get; set; }

@@ -16,7 +16,8 @@ namespace TrabalhoASW.Models
         /* Propriedades */
         [Key]
         public int universidadeId { get; set; }
-        [Required, MaxLength(100), MinLength(5)]
+        [Required]
+        //[Required, MaxLength(100), MinLength(5)]
         public string nome { get; set; }
         public virtual  ICollection<Curso> cursos { get; set; }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,10 +13,11 @@ namespace TrabalhoASW.Models
         /* Propriedades */
         [Key, Required]
         public int coordenadorId { get; set; }
+        public virtual Pessoa pessoa { get; set; }
         [Required]
-        public Pessoa pessoa { get; set; }
-        [Required]
-        public Curso curso { get; set; }
+        public int cursoId { get; set; }
+        [ForeignKey("cursoId")]
+        public virtual Curso curso { get; set; }
 
         /* Métodos */
         public ICollection<Nota> consultarNotasAluno(Aluno aluno)

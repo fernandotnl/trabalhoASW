@@ -20,15 +20,17 @@ namespace TrabalhoASW.Models
         [Required]
         public string codigo { get; set; }
         [Required]
-        public Periodo periodo { get; set; }
-        [Required]
         public Turno turno { get; set; }
-
-        public int professorId { get; set; }
         [Required]
-        public Professor professor { get; set; }
+        public int periodoId { get; set; }
+        public virtual Periodo periodo { get; set; }
+        [Required]
+        public int professorId { get; set; }
+        public virtual Professor professor { get; set; }
+        [Required]
+        public int disciplinaId { get; set; }
+        public virtual Disciplina disciplina { get; set; }
         public virtual ICollection<Aluno> alunos { get; set; }
-        public Disciplina disciplina { get; set; }
-        public ICollection<Avaliacao> avaliacoes { get; set; }
+        public virtual ICollection<Avaliacao> avaliacoes { get; set; }
     }
 }
