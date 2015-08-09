@@ -1,15 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using TrabalhoASW.Models;
-using TrabalhoASW.Models.repository;
+using TrabalhoASW.Models.Repository;
 
 namespace TrabalhoASW.Controllers.Business
 {
     public class NotaBusiness
     {
-        NotaRepository repositorio = new NotaRepository();
+        NotaRepository repositorio;
+        public NotaBusiness(UnidadeDeTrabalho unidadeDeTrabalho)
+        {
+            repositorio = unidadeDeTrabalho.NotaRepository;
+        }
+
+        public Nota criaNota(Aluno aluno, double valor, Avaliacao avaliacao)
+        {
+            Nota nota = new Nota();
+            nota.aluno = aluno;
+            nota.valor = valor;
+            nota.avaliacao = avaliacao;
+            nota.avaliacao.notas.Add(nota);
+
+            avaliacao.notas.Add(nota);
+            return nota;
+        }
+
+        public void persisteNotas(List<Nota> notas)
+        {
+            List<Avaliacao> avaliacoes = new List<Avaliacao>();
+            foreach (Nota nota in notas)
+            {
+                Avaliacao avaliacao = nota.avaliacao;
+                repositorio.context.notas.Add(nota);
+                avaliacao.notas.Add(nota);
+                repositorio.context.Entry(avaliacao).State = EntityState.Modified;
+            }
+        }
 
         public ICollection<Nota> buscarTodos()
         {

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace TrabalhoASW.Models.Repository
 {
-    public interface BaseRepository<E>
+    public interface BaseRepository<E> : IDisposable
     {
         ICollection<E> buscarTodos();
+        void salva();
     }
 }

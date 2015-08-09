@@ -219,6 +219,7 @@
     <Compile Include="Models\Repository\PessoaRepository.cs" />
     <Compile Include="Models\Repository\ProfessorRepository.cs" />
     <Compile Include="Models\Repository\TurmaRepository.cs" />
+    <Compile Include="Models\Repository\UnitOfWork.cs" />
     <Compile Include="Models\Repository\UniversidadeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

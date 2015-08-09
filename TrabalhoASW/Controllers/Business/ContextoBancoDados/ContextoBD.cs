@@ -9,7 +9,7 @@ using TrabalhoASW.Models;
 
 namespace TrabalhoASW.Models
 {
-    class ContextoBD : DbContext
+    public class ContextoBD : DbContext
     {
         public DbSet<Aluno> alunos { get; set; }
         public DbSet<Avaliacao> avaliacoes { get; set; }
