@@ -16,7 +16,7 @@ namespace TrabalhoASW.Controllers
         public ActionResult Index()
         {
             UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
-            CriaBanco cria = new CriaBanco(unidadeDeTrabalho); // Descomentar para gerar o banco
+            CriaBanco cria = new CriaBanco(unidadeDeTrabalho); // Descomentar para gerar o banco e comentar após gerar o banco
             NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
             /*Aluno aluno = new Aluno();
             aluno.alunoId = 1;

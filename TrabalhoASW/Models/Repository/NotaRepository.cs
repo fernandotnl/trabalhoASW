@@ -129,7 +129,7 @@ namespace TrabalhoASW.Models.Repository
             notasAlunoPeriodo = consulta.ToList<Nota>();
             return notasAlunoPeriodo;
         }
-        public ICollection<Nota> consultarNotasAlunoPeriodo(Aluno alunoParam, Periodo periodoInicio, Periodo periodoFim)
+        public ICollection<Nota> consultarNotasIntervaloPeriodo(Aluno alunoParam, Periodo periodoInicio, Periodo periodoFim)
         {
             ICollection<Nota> notasAlunoPeriodo = new List<Nota>();
             DbSet<Nota> notas = context.notas;
@@ -138,7 +138,23 @@ namespace TrabalhoASW.Models.Repository
             DbSet<Avaliacao> avaliacoes = context.avaliacoes;
             DbSet<Periodo> periodos = context.periodos;
             var consulta = from nota in notas
-                            join aluno in alunos on nota.alunoId equals aluno.alunoId
+                           join aluno in alunos on nota.alunoId equals aluno.alunoId
+                           join avaliacao in avaliacoes on nota.avaliacaoId equals avaliacao.avaliacaoId
+                           join turma in turmas on avaliacao.turmaId equals turma.turmaId
+                           join periodo in periodos on turma.periodoId equals periodo.periodoId
+                           where periodo.dataInicio >= periodoInicio.dataInicio && periodo.dataFim <= periodo.dataFim && aluno.alunoId == alunoParam.alunoId
+                           select nota;
+            notasAlunoPeriodo = consulta.ToList<Nota>();
+            return notasAlunoPeriodo;
+        }
+        public ICollection<Nota> consultarNotasAlunoIntervaloPeriodo(Periodo periodoInicio, Periodo periodoFim)
+        {
+            ICollection<Nota> notasAlunoPeriodo = new List<Nota>();
+            DbSet<Nota> notas = context.notas;
+            DbSet<Turma> turmas = context.turmas;
+            DbSet<Avaliacao> avaliacoes = context.avaliacoes;
+            DbSet<Periodo> periodos = context.periodos;
+            var consulta = from nota in notas
                             join avaliacao in avaliacoes on nota.avaliacaoId equals avaliacao.avaliacaoId
                             join turma in turmas on avaliacao.turmaId equals turma.turmaId
                             join periodo in periodos on turma.periodoId equals periodo.periodoId
