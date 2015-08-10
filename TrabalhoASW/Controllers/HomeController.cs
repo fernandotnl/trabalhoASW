@@ -15,30 +15,43 @@ namespace TrabalhoASW.Controllers
         
         public ActionResult Index()
         {
+            return View();
+        }
+        public ActionResult CriarBanco()
+        {
             UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
-            CriaBanco cria = new CriaBanco(unidadeDeTrabalho); // Descomentar para gerar o banco e comentar após gerar o banco
-            NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
-            /*Aluno aluno = new Aluno();
-            aluno.alunoId = 1;
-
-            Turma turma = new Turma();
-            turma.turmaId = 1;
-            ICollection<Nota> notas = notaBusiness.consultarNotasAluno(aluno);
-            ICollection<Nota> notas2 = notaBusiness.consultarNotasTurma(turma);
-            ICollection<Nota> notas3 = notaBusiness.consultarNotasAlunoTurma(aluno, turma);*/
+            UniversidadeBusiness universidadeBusiness = new UniversidadeBusiness(unidadeDeTrabalho);
+            ICollection<Universidade> universidades = universidadeBusiness.buscarTodos();
+            if (universidades.Count > 0)
+            {
+                ViewBag.Message = "O banco já foi criado anteriormente.";
+            }
+            else
+            {
+                CriaBanco cria = new CriaBanco(unidadeDeTrabalho); 
+                ViewBag.Message = "Banco criado com sucesso!";
+            }
             return View();
         }
 
-        public ActionResult About()
+
+        public ActionResult ConsultaNotas_aluno()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Página de consulta do aluno.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult ConsultaNotas_coordenador()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Página de consulta do coordenador.";
+
+            return View();
+        }
+
+        public ActionResult ConsultaNotas_secretario()
+        {
+            ViewBag.Message = "Página de consulta do secretario.";
 
             return View();
         }

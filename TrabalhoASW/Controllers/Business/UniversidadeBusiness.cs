@@ -11,6 +11,10 @@ namespace TrabalhoASW.Controllers.Business
     {
         UniversidadeRepository repositorio;
 
+        public ICollection<Universidade> buscarTodos()
+        {
+            return repositorio.buscarTodos();
+        }
         public UniversidadeBusiness(UnidadeDeTrabalho unidadeDeTrabalho)
         {
             repositorio = unidadeDeTrabalho.UniversidadeRepository;
