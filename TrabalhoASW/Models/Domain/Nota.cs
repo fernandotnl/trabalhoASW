@@ -11,11 +11,9 @@ namespace TrabalhoASW.Models
         /* Propriedades */
         [Key, Required]
         public int notaId { get; set; }
-
         public int alunoId { get; set; }
         [Required]
         public Aluno aluno { get; set; }
-
         public int avaliacaoId { get; set; }
         [Required]
         public Avaliacao avaliacao { get; set; }

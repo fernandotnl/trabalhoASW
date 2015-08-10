@@ -14,6 +14,7 @@ namespace TrabalhoASW.Models
             this.alunos = new List<Aluno>();
             this.professores = new List<Professor>();
         }
+
         /* Propriedades */
         [Key, Required]
         public int cursoId { get; set; }

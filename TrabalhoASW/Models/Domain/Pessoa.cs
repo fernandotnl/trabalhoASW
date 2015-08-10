@@ -18,25 +18,22 @@ namespace TrabalhoASW.Models
         [Key, Required]
         public int pessoaId { get; set; }
         [Required]
-        // [Required, MaxLength(60), MinLength(3)]
+        //[Required, MaxLength(60), MinLength(3)]
         public string nome { get; set; }
         [Required]
         //[Required, MaxLength(12), MinLength(12)]
         public string cpf { get; set; }
         [Required]
-        //[Required, EmailAddress, MaxLength(100), MinLength(5)]
+        //[Required, MaxLength(100), MinLength(5)]
         public string email { get; set; }
         [Required]
         //[Required, MaxLength(20), MinLength(9)]
         public string telefone { get; set; }
         [Required]
         public Endereco endereco { get; set; }
-        public virtual ICollection<Matricula> matriculas { get; set; }
-
         public virtual Professor professor { get; set; }
-
         public virtual Coordenador coordenador { get; set; }
-
         public virtual Aluno aluno { get; set; }
+        public virtual ICollection<Matricula> matriculas { get; set; }
     }
 }
