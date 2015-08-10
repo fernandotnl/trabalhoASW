@@ -212,7 +212,6 @@
     <Compile Include="Models\Domain\Turma.cs" />
     <Compile Include="Models\Domain\Universidade.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Interfaces\Perfil.cs" />
     <Compile Include="Models\Enums\TipoMatricula.cs" />
     <Compile Include="Models\Enums\Turno.cs" />
     <Compile Include="Models\Repository\AlunoRepository.cs" />
@@ -228,7 +227,7 @@
     <Compile Include="Models\Repository\PessoaRepository.cs" />
     <Compile Include="Models\Repository\ProfessorRepository.cs" />
     <Compile Include="Models\Repository\TurmaRepository.cs" />
-    <Compile Include="Models\Repository\UnidadeDeTrabalho.cs" />
+    <Compile Include="Models\Repository\UnidadeDeTrabalho\UnidadeDeTrabalho.cs" />
     <Compile Include="Models\Repository\UniversidadeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
