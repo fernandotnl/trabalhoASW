@@ -175,9 +175,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Business\UsuariosBusiness.cs" />
     <Compile Include="Controllers\Business\AlunoBusiness.cs" />
     <Compile Include="Controllers\Business\AvaliacaoBusiness.cs" />
-    <Compile Include="Controllers\Business\ContextoBancoDados\CriaBanco.cs" />
+    <Compile Include="Controllers\Business\BancoDadosBusiness.cs" />
     <Compile Include="Controllers\Business\CoordenadorBusiness.cs" />
     <Compile Include="Controllers\Business\CursoBusiness.cs" />
     <Compile Include="Controllers\Business\DisciplinaBusiness.cs" />

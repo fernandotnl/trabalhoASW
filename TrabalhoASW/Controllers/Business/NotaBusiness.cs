@@ -30,13 +30,13 @@ namespace TrabalhoASW.Controllers.Business
 
         public void persisteNotas(List<Nota> notas)
         {
-            List<Avaliacao> avaliacoes = new List<Avaliacao>();
+            //List<Avaliacao> avaliacoes = new List<Avaliacao>();
             foreach (Nota nota in notas)
             {
-                Avaliacao avaliacao = nota.avaliacao;
+                //Avaliacao avaliacao = nota.avaliacao;
                 repositorio.context.notas.Add(nota);
-                avaliacao.notas.Add(nota);
-                repositorio.context.Entry(avaliacao).State = EntityState.Modified;
+                //avaliacao.notas.Add(nota);
+                //repositorio.context.Entry(avaliacao).State = EntityState.Modified;
             }
         }
 
