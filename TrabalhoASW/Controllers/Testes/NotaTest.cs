@@ -12,27 +12,89 @@ namespace TrabalhoASW.Controllers.Testes
     [TestFixture]
     public class NotaTest
     {
+        private Aluno MockAluno()
+        {
+            Aluno aluno = new Aluno();
+            aluno.alunoId = 1;
+            aluno.cursoId = 1;
+
+            Pessoa pessoa = new Pessoa();
+            pessoa.pessoaId = 1;
+            aluno.pessoa = pessoa;
+
+            return aluno;
+        }
+
+        private Periodo MockPeriodo()
+        {
+            Periodo periodo = new Periodo();
+            periodo.periodoId = 1;
+            periodo.nome = "";
+            periodo.dataInicio = DateTime.Now;
+            periodo.dataFim = DateTime.Now;
+
+            return periodo;
+        }
+
+        private Disciplina MockDisciplina()
+        {
+            Disciplina disciplina = new Disciplina();
+            disciplina.disciplinaId = 1;
+            disciplina.codigo = "abc";
+            disciplina.nome = "PROGRAMACAO";
+
+            return disciplina;
+        }
+
+        private Nota MockNota()
+        {
+            Nota nota = new Nota();
+
+            nota.notaId = 1;
+            nota.aluno = MockAluno();
+            nota.avaliacao = MockAvaliacao();
+
+            return nota;
+        }
+
+        private Avaliacao MockAvaliacao()
+        {
+            Avaliacao avaliacao = new Avaliacao();
+
+            avaliacao.avaliacaoId = 1;
+            avaliacao.turmaId = 1;
+            avaliacao.nome = "";
+            avaliacao.turma = MockTurma();
+
+            return avaliacao;
+        }
+
+        private Turma MockTurma()
+        {
+            Turma turma = new Turma();
+
+            turma.turmaId = 1;
+            turma.codigo = "";
+            turma.turmaId = 1;
+            turma.periodoId = 1;
+            turma.periodo = MockPeriodo();
+            turma.professorId = 1;
+            turma.disciplinaId = 1;
+            turma.disciplina = MockDisciplina();
+
+            return new Turma();
+        }
+
         [Test]
         public void criaNotaTestTest()
         {
             UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
             NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
 
-            Models.Aluno aluno = new Models.Aluno();
-            Models.Avaliacao avaliacao = new Models.Avaliacao();
+            Models.Aluno aluno = MockAluno();
+            Models.Avaliacao avaliacao = MockAvaliacao();
 
-            Assert.Throws<Exception>(() => notaBusiness.criaNota(aluno, 100,  avaliacao));
-        }
-
-        [Test]
-        public void persisteNotasTest()
-        {
-            UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
-            NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
-
-            List<Models.Nota> notas = new List<Models.Nota>();
-
-            Assert.Throws<Exception>(() => notaBusiness.persisteNotas(notas));
+            Assert.Throws<Exception>(() => notaBusiness.criaNota(aluno, 100, avaliacao));
         }
 
         [Test]
@@ -47,7 +109,7 @@ namespace TrabalhoASW.Controllers.Testes
         [Test]
         public void consultarNotasAlunoTest()
         {
-            Aluno alunoParam = new Aluno();
+            Aluno alunoParam = MockAluno();
 
             UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
             NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
@@ -58,7 +120,7 @@ namespace TrabalhoASW.Controllers.Testes
         [Test]
         public void consultarNotasTurmaTest()
         {
-            Turma turmaParam = new Turma();
+            Turma turmaParam = MockTurma();
 
             UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
             NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
@@ -69,19 +131,19 @@ namespace TrabalhoASW.Controllers.Testes
         [Test]
         public void consultarNotasAlunoTurmaTest()
         {
-            Turma turmaParam = new Turma();
-            Aluno alunoParam = new Aluno();
+            Turma turmaParam = MockTurma();
+            Aluno alunoParam = MockAluno();
 
             UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
             NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
 
-            Assert.IsNotEmpty(notaBusiness.consultarNotasAlunoTurma(alunoParam,turmaParam));
+            Assert.IsNotEmpty(notaBusiness.consultarNotasAlunoTurma(alunoParam, turmaParam));
         }
 
         [Test]
         public void consultarNotasDisciplinaTest()
         {
-            Disciplina disciplinaParam = new Disciplina();
+            Disciplina disciplinaParam = MockDisciplina();
 
             UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
             NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
@@ -92,9 +154,9 @@ namespace TrabalhoASW.Controllers.Testes
         [Test]
         public void consultarNotasAlunoDisciplinaTest()
         {
-            Aluno alunoParam = new Aluno();
-            Disciplina disciplinaParam = new Disciplina();
-            
+            Aluno alunoParam = MockAluno();
+            Disciplina disciplinaParam = MockDisciplina();
+
             UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
             NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
 
@@ -104,7 +166,7 @@ namespace TrabalhoASW.Controllers.Testes
         [Test]
         public void consultarNotasPeriodoTest()
         {
-            Periodo periodoParam = new Periodo();
+            Periodo periodoParam = MockPeriodo();
 
             UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
             NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
@@ -115,9 +177,8 @@ namespace TrabalhoASW.Controllers.Testes
         [Test]
         public void consultarNotasAlunoPeriodoTest()
         {
-
-            Aluno alunoParam = new Aluno();
-            Periodo periodoParam = new Periodo();
+            Aluno alunoParam = MockAluno();
+            Periodo periodoParam = MockPeriodo();
             UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
             NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
 
