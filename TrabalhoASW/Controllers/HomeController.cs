@@ -110,9 +110,17 @@ namespace TrabalhoASW.Controllers
             CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
             DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
             NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
+            DateTime dataInicio = DateTime.MinValue;
+            DateTime dataFim = DateTime.MaxValue;
+            if (viewModel.DataInicio != null)
+                dataInicio = DateTime.ParseExact(viewModel.DataInicio, "dd/MM/yyyy",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+            if (viewModel.DataFim != null)
+            dataFim = DateTime.ParseExact(viewModel.DataFim, "dd/MM/yyyy",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+            List<Nota> notas = notaBusiness.consultarNotasPorFiltros(viewModel.Curso, null, viewModel.Disciplina, dataInicio, dataFim).ToList();
 
-            List<Nota> notas =notaBusiness.buscarTodos().ToList();
-
+           
             //ViewBag.Notas = notas.Where(w =>
             //     w.avaliacao.turma.disciplina.disciplinaId == Convert.ToInt32(viewModel.Disciplina)
             //    && w.avaliacao.turma.periodo.dataInicio == Convert.ToDateTime(viewModel.DataInicio)
