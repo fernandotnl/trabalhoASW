@@ -31,5 +31,10 @@ namespace TrabalhoASW.Controllers.Business
             }
             repositorio.salva();
         }
+
+        public ICollection<Coordenador> buscarTodos()
+        {
+            return repositorio.buscarTodos();
+        }
     }
 }

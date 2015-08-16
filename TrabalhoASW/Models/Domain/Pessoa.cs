@@ -23,6 +23,10 @@ namespace TrabalhoASW.Models
         [Required]
         //[Required, MaxLength(12), MinLength(12)]
         public string cpf { get; set; }
+
+        //[Required]
+        //public DateTime dataNascimento { get; set; }
+
         [Required]
         //[Required, MaxLength(100), MinLength(5)]
         public string email { get; set; }
@@ -34,6 +38,8 @@ namespace TrabalhoASW.Models
         public virtual Professor professor { get; set; }
         public virtual Coordenador coordenador { get; set; }
         public virtual Aluno aluno { get; set; }
+
+        //public virtual ApplicationUser usuario { get; set; }
         public virtual ICollection<Matricula> matriculas { get; set; }
     }
 }

@@ -31,5 +31,9 @@ namespace TrabalhoASW.Controllers.Business
            }
            repositorio.salva();
         }
+        public ICollection<Aluno> buscarTodos()
+        {
+            return repositorio.buscarTodos();
+        }
     }
 }

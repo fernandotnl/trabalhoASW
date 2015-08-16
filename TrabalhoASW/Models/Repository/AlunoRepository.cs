@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -16,7 +17,12 @@ namespace TrabalhoASW.Models.Repository
         }
         public ICollection<Aluno> buscarTodos()
         {
-            return new List<Aluno>();
+            ICollection<Aluno> todosAlunos = new List<Aluno>();
+            DbSet<Aluno> alunos = context.alunos;
+            var consulta = from aluno in alunos
+                           select aluno;
+            todosAlunos = consulta.ToList<Aluno>();
+            return todosAlunos;
         }
         public void salva()
         {

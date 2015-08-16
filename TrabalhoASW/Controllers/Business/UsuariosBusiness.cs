@@ -55,6 +55,45 @@ namespace TrabalhoASW.Controllers.Business
             criarUsuario(coordenador, "Coordenador");
         }
 
+        public void criarUsuariosAlunos(ICollection<Aluno> alunos)
+        {
+            foreach (Aluno aluno in alunos)
+            {
+                RegisterViewModel alunoUsuario = new RegisterViewModel();
+                alunoUsuario.Email = aluno.pessoa.email;
+                alunoUsuario.Password = "Teste@1234";
+                //alunoUsuario.pessoa = aluno.pessoa;
+                criarUsuario(alunoUsuario, "Aluno");
+
+            }
+        }
+
+        public void criarUsuariosProfessores(ICollection<Professor> professores)
+        {
+
+            foreach (Professor professor in professores)
+            {
+                RegisterViewModel secretarioUsuario = new RegisterViewModel();
+                secretarioUsuario.Email = professor.pessoa.email;
+                secretarioUsuario.Password = "Teste@1234";
+                //secretarioUsuario.pessoa = professor.pessoa;
+                criarUsuario(secretarioUsuario, "Secretario");
+            }
+        }
+
+        public void criarUsuariosCoordenadores(ICollection<Coordenador> coordenadores)
+        {
+
+            foreach (Coordenador coordenador in coordenadores)
+            {
+                RegisterViewModel coordenadorUsuario = new RegisterViewModel();
+                coordenadorUsuario.Email = coordenador.pessoa.email;
+                coordenadorUsuario.Password = "Teste@1234";
+                //coordenadorUsuario.pessoa = coordenador.pessoa;
+                criarUsuario(coordenadorUsuario, "Coordenador");
+            }
+        }
+
         public void criarRoles()
         {
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(ApplicationDbContext.Create()));
@@ -65,7 +104,8 @@ namespace TrabalhoASW.Controllers.Business
 
         private void criarUsuario(RegisterViewModel model, string role)
         {
-            var user1 = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user1 = new ApplicationUser() { UserName = model.Email, Email = model.Email  };
+            //var user1 = new ApplicationUser() { UserName = model.Email, Email = model.Email, Pessoa = model.pessoa };
             IdentityResult result1 = UserManager.Create(user1, model.Password);
             if (result1.Succeeded)
             {

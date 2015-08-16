@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -17,8 +18,14 @@ namespace TrabalhoASW.Models.Repository
 
         public ICollection<Coordenador> buscarTodos()
         {
-            return new List<Coordenador>();
+            ICollection<Coordenador> todosCoordenadores = new List<Coordenador>();
+            DbSet<Coordenador> coordenadores = context.coordenadores;
+            var consulta = from coordenador in coordenadores
+                           select coordenador;
+            todosCoordenadores = consulta.ToList<Coordenador>();
+            return todosCoordenadores;
         }
+
         public void salva()
         {
             this.context.SaveChanges();

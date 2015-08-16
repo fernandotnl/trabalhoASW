@@ -60,9 +60,22 @@ namespace TrabalhoASW.Controllers
             }
             else
             {
-                UsuarioBusiness usuarioBusiness = new UsuarioBusiness(UserManager);
-                usuarioBusiness.criarBancoUsuarios();
                 BancoDadosBusiness banco = new BancoDadosBusiness(unidadeDeTrabalho); 
+                
+                UsuarioBusiness usuarioBusiness = new UsuarioBusiness(UserManager);
+                usuarioBusiness.criarRoles();
+
+                AlunoBusiness alunoBusiness = new AlunoBusiness(unidadeDeTrabalho);
+                ICollection<Aluno> alunos = alunoBusiness.buscarTodos();
+                usuarioBusiness.criarUsuariosAlunos(alunos);
+
+                ProfessorBusiness professorBusiness = new ProfessorBusiness(unidadeDeTrabalho);
+                ICollection<Professor> professores = professorBusiness.buscarTodos();
+                usuarioBusiness.criarUsuariosProfessores(professores);
+
+                CoordenadorBusiness coordenadorBusiness = new CoordenadorBusiness(unidadeDeTrabalho);
+                ICollection<Coordenador> coordenadores = coordenadorBusiness.buscarTodos();
+                usuarioBusiness.criarUsuariosCoordenadores(coordenadores);
                 ViewBag.Message = "Banco criado com sucesso!";
             }
             return View();
@@ -123,8 +136,18 @@ namespace TrabalhoASW.Controllers
             CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
             DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
             NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
+            DateTime dataInicio = DateTime.MinValue;
+            DateTime dataFim = DateTime.MaxValue;
+            if (viewModel.DataInicio != null)
+                dataInicio = DateTime.ParseExact(viewModel.DataInicio, "dd/MM/yyyy",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+            if (viewModel.DataFim != null)
+            dataFim = DateTime.ParseExact(viewModel.DataFim, "dd/MM/yyyy",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+            List<Nota> notas = notaBusiness.consultarNotasPorFiltros(viewModel.Curso, viewModel.Aluno, viewModel.Disciplina, dataInicio, dataFim).OrderBy(o => o.aluno.pessoa.nome).ToList();
 
-            List<Nota> notas = notaBusiness.buscarTodos().OrderBy(o => o.aluno.pessoa.nome).ToList();
+           
+            //List<Nota> notas = notaBusiness.buscarTodos().OrderBy(o => o.aluno.pessoa.nome).ToList();
 
             ViewBag.Notas = notas;
             ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
