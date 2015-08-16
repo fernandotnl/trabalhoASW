@@ -168,7 +168,7 @@ namespace TrabalhoASW.Models.Repository
         public ICollection<Nota> consultarNotasPorFiltros(int idCurso, int alunoMatricula, int idDisciplina, DateTime periodoInicio, DateTime periodoFim)
         {
             ICollection<Nota> notasAlunoPeriodo = new List<Nota>();
-            var notas = context.notas.Include(nota => nota.avaliacao.turma.disciplina).Include(nota => nota.aluno.pessoa);
+            var notas = context.notas;
             DbSet<Turma> turmas = context.turmas;
             DbSet<Avaliacao> avaliacoes = context.avaliacoes;
             DbSet<Periodo> periodos = context.periodos;
@@ -177,10 +177,10 @@ namespace TrabalhoASW.Models.Repository
             DbSet<Pessoa> pessoas = context.pessoas;
             DbSet<Matricula> matriculas = context.matriculas;
             DbSet<Curso> cursos = context.cursos;
-            var consulta = from nota in notas
+            var consulta = (from nota in notas
                            join aluno in alunos on nota.alunoId equals aluno.alunoId
                            join curso in cursos on aluno.cursoId equals curso.cursoId
-                           join pessoa in pessoas on aluno.pessoa equals pessoa
+                           join pessoa in pessoas on aluno.pessoa.pessoaId equals pessoa.pessoaId
                            join matricula in matriculas on pessoa.pessoaId equals matricula.pessoaId
                            join avaliacao in avaliacoes on nota.avaliacaoId equals avaliacao.avaliacaoId
                            join turma in turmas on avaliacao.turmaId equals turma.turmaId
@@ -193,7 +193,7 @@ namespace TrabalhoASW.Models.Repository
                                 (alunoMatricula == 0|| matricula.matriculaId == alunoMatricula) &&
                                 (idCurso == 0 || curso.cursoId == idCurso)
                            orderby pessoa.nome
-                           select nota;
+                           select nota).Include(nota => nota.avaliacao.turma.disciplina).Include(nota => nota.aluno);
             notasAlunoPeriodo = consulta.ToList<Nota>();
             return notasAlunoPeriodo;
         }
