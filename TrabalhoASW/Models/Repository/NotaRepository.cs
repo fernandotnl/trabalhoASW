@@ -20,7 +20,7 @@ namespace TrabalhoASW.Models.Repository
         public ICollection<Nota> buscarTodos()
         {
             ICollection<Nota> todasNotas = new List<Nota>();
-            var notas = context.notas.Include(nota=>nota.avaliacao.turma.disciplina).Include(nota=>nota.aluno);
+            var notas = context.notas.Include(nota=>nota.avaliacao.turma.disciplina).Include(nota=>nota.aluno.pessoa);
             var consulta = from nota in notas
                             select nota;
             todasNotas = consulta.ToList<Nota>();

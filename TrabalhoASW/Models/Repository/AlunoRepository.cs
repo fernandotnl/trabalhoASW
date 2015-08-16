@@ -24,16 +24,19 @@ namespace TrabalhoASW.Models.Repository
             todosAlunos = consulta.ToList<Aluno>();
             return todosAlunos;
         }
+
         public Aluno buscarAlunoPorEmail(String email)
         {
+            ICollection<Aluno> resultAlunos = new List<Aluno>();
             DbSet<Aluno> alunos = context.alunos;
             DbSet<Pessoa> pessoas = context.pessoas;
             var consulta = (from aluno in alunos
-                           join pessoa in pessoas on aluno.pessoa.pessoaId equals pessoa.pessoaId
-                           where pessoa.email == email
-                           select aluno);
+                            join pessoa in pessoas on aluno.pessoa.pessoaId equals pessoa.pessoaId
+                            where pessoa.email == email
+                            select aluno).Include(a => a.pessoa);
             return consulta.FirstOrDefault();
         }
+
         public void salva()
         {
             this.context.SaveChanges();
