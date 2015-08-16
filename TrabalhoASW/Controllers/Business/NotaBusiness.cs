@@ -78,9 +78,9 @@ namespace TrabalhoASW.Controllers.Business
             return repositorio.consultarNotasAlunoPeriodo(alunoParam, periodoParam);
         }
 
-        public ICollection<Nota> consultarNotasPorFiltros(String nomeCurso, String nomeAluno, String nomeDisciplina, DateTime periodoInicio, DateTime periodoFim)
+        public ICollection<Nota> consultarNotasPorFiltros(int idCurso, int nomeAluno, int idDisciplina, DateTime periodoInicio, DateTime periodoFim)
         {
-            return repositorio.consultarNotasPorFiltros(nomeCurso, nomeAluno, nomeDisciplina, periodoInicio, periodoFim);
+            return repositorio.consultarNotasPorFiltros(idCurso, nomeAluno, idDisciplina, periodoInicio, periodoFim);
         }
         
     }

@@ -165,10 +165,10 @@ namespace TrabalhoASW.Models.Repository
         }
 
         
-        public ICollection<Nota> consultarNotasPorFiltros(String cursoNome, String alunoMatricula, String disciplinaCodigo, DateTime periodoInicio, DateTime periodoFim)
+        public ICollection<Nota> consultarNotasPorFiltros(int idCurso, int alunoMatricula, int idDisciplina, DateTime periodoInicio, DateTime periodoFim)
         {
             ICollection<Nota> notasAlunoPeriodo = new List<Nota>();
-            DbSet<Nota> notas = context.notas;
+            var notas = context.notas.Include(nota => nota.avaliacao.turma.disciplina).Include(nota => nota.aluno);
             DbSet<Turma> turmas = context.turmas;
             DbSet<Avaliacao> avaliacoes = context.avaliacoes;
             DbSet<Periodo> periodos = context.periodos;
@@ -189,9 +189,9 @@ namespace TrabalhoASW.Models.Repository
                            where
                                 (periodoInicio == null || periodo.dataInicio >= periodoInicio) &&
                                 (periodoFim == null || periodo.dataFim <= periodoFim) &&
-                                (disciplinaCodigo == null || disciplina.codigo == disciplinaCodigo) &&
-                                (alunoMatricula == null || matricula.codigo == alunoMatricula) &&
-                                (cursoNome == null || curso.nome == cursoNome)
+                                (idDisciplina == 0 || disciplina.disciplinaId == idDisciplina) &&
+                                (alunoMatricula == 0|| matricula.matriculaId == alunoMatricula) &&
+                                (idCurso == 0 || curso.cursoId == idCurso)
                            select nota;
             notasAlunoPeriodo = consulta.ToList<Nota>();
             return notasAlunoPeriodo;

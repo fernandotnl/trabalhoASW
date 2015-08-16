@@ -84,10 +84,36 @@ namespace TrabalhoASW.Controllers
         [Authorize(Roles="Aluno")]
         public ActionResult ConsultaNotas_aluno()
         {
-            
+            UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
+            CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
+            DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
+
+            ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
+            ViewBag.Cursos = cursoBusiness.BuscarTodos();
+            ViewBag.Notas = new List<Nota>();
 
             return View();
         }
+
+        [Authorize(Roles = "Aluno")]
+        [HttpPost]
+        public ActionResult ConsultaNotas_aluno(AlunoModel viewModel)
+        {
+
+            UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
+            CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
+            DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
+            NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
+
+            List<Nota> notas = notaBusiness.buscarTodos().OrderBy(o => o.aluno.pessoa.nome).ToList();
+
+            ViewBag.Notas = notas;
+            ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
+            ViewBag.Cursos = cursoBusiness.BuscarTodos();
+
+            return View();
+        }
+
         [Authorize(Roles = "Coordenador")]
         public ActionResult ConsultaNotas_coordenador()
         {
@@ -118,13 +144,10 @@ namespace TrabalhoASW.Controllers
             if (viewModel.DataFim != null)
             dataFim = DateTime.ParseExact(viewModel.DataFim, "dd/MM/yyyy",
                                        System.Globalization.CultureInfo.InvariantCulture);
-            List<Nota> notas = notaBusiness.consultarNotasPorFiltros(viewModel.Curso, null, viewModel.Disciplina, dataInicio, dataFim).ToList();
+            List<Nota> notas = notaBusiness.consultarNotasPorFiltros(viewModel.Curso, viewModel.Aluno, viewModel.Disciplina, dataInicio, dataFim).OrderBy(o => o.aluno.pessoa.nome).ToList();
 
            
-            //ViewBag.Notas = notas.Where(w =>
-            //     w.avaliacao.turma.disciplina.disciplinaId == Convert.ToInt32(viewModel.Disciplina)
-            //    && w.avaliacao.turma.periodo.dataInicio == Convert.ToDateTime(viewModel.DataInicio)
-            //    && w.avaliacao.turma.periodo.dataInicio == Convert.ToDateTime(viewModel.DataFim)).ToList();
+            //List<Nota> notas = notaBusiness.buscarTodos().OrderBy(o => o.aluno.pessoa.nome).ToList();
 
             ViewBag.Notas = notas;
             ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
@@ -133,11 +156,55 @@ namespace TrabalhoASW.Controllers
             return View();
         }
 
-
         [Authorize(Roles = "Secretario")]
         public ActionResult ConsultaNotas_secretario()
         {
-            ViewBag.Message = "Página de consulta do secretario.";
+            ViewBag.Erro = false;
+
+            UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
+            CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
+            DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
+
+            ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
+            ViewBag.Cursos = cursoBusiness.BuscarTodos();
+            ViewBag.Notas = new List<Nota>();
+
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Secretario")]
+        public ActionResult ConsultaNotas_secretario(SecretariaModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewBag.Erro = false;
+
+                UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
+                CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
+                DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
+                NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
+
+                List<Nota> notas = notaBusiness.buscarTodos().OrderBy(o => o.aluno.pessoa.nome).ToList();
+
+                ViewBag.Notas = notas;
+                ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
+                ViewBag.Cursos = cursoBusiness.BuscarTodos();
+            }
+            else
+            {
+                ViewBag.Erro = true;
+
+                UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
+                CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
+                DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
+
+                ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
+                ViewBag.Cursos = cursoBusiness.BuscarTodos();
+                ViewBag.Notas = new List<Nota>();
+
+                return View();
+            }
 
             return View();
         }
