@@ -274,6 +274,7 @@ namespace TrabalhoASW.Controllers.Business
             List<Professor> professores = new List<Professor>();
             List<Coordenador> coordenadores = new List<Coordenador>();
 
+            qtdPessoas++;
             Endereco enderecoCoordenador = enderecoBusiness.criaEndereco("Rua " + qtdPessoas, qtdPessoas, "apto " + qtdPessoas, "bairro" + qtdPessoas, "cidade" + qtdPessoas, "estado" + qtdPessoas, "11111-11");
             Pessoa pessoaCoordenador = pessoaBusiness.criaPessoa("Pessoa" + qtdPessoas, "111111111-11", "pessoa" + qtdPessoas + "@email.com.br", "1111-1111", enderecoCoordenador);
             Matricula matriculaCoordenador = matriculaBusiness.criaMatricula(qtdPessoas.ToString(), TipoMatricula.COORDENADOR, pessoaCoordenador);
@@ -285,10 +286,10 @@ namespace TrabalhoASW.Controllers.Business
            
             for (int i = 1; i <= 63; i++) 
             {
+                qtdPessoas++;
                 Endereco endereco = enderecoBusiness.criaEndereco("Rua " + qtdPessoas, qtdPessoas, "apto " + qtdPessoas, "bairro" + qtdPessoas, "cidade" + qtdPessoas, "estado" + qtdPessoas, "11111-11");
                 Pessoa pessoa = pessoaBusiness.criaPessoa("Pessoa" + qtdPessoas, "111111111-11", "pessoa" + qtdPessoas + "@email.com.br", "1111-1111", endereco);
                 pessoas.Add(pessoa);
-                qtdPessoas++;
                 if (i % 20 != 0) 
                 {
                     Matricula matricula = matriculaBusiness.criaMatricula(qtdPessoas.ToString(), TipoMatricula.ALUNO, pessoa);

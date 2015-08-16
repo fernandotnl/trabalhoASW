@@ -21,6 +21,7 @@ namespace TrabalhoASW.Controllers.Business
             Pessoa pessoa1 = new Pessoa();
             pessoa1.nome = nome;
             pessoa1.cpf = cpf;
+            //pessoa1.dataNascimento = new DateTime();
             pessoa1.email = email;
             pessoa1.telefone = telefone;
             pessoa1.endereco = endereco;

@@ -59,9 +59,22 @@ namespace TrabalhoASW.Controllers
             }
             else
             {
-                UsuarioBusiness usuarioBusiness = new UsuarioBusiness(UserManager);
-                usuarioBusiness.criarBancoUsuarios();
                 BancoDadosBusiness banco = new BancoDadosBusiness(unidadeDeTrabalho); 
+                
+                UsuarioBusiness usuarioBusiness = new UsuarioBusiness(UserManager);
+                usuarioBusiness.criarRoles();
+
+                AlunoBusiness alunoBusiness = new AlunoBusiness(unidadeDeTrabalho);
+                ICollection<Aluno> alunos = alunoBusiness.buscarTodos();
+                usuarioBusiness.criarUsuariosAlunos(alunos);
+
+                ProfessorBusiness professorBusiness = new ProfessorBusiness(unidadeDeTrabalho);
+                ICollection<Professor> professores = professorBusiness.buscarTodos();
+                usuarioBusiness.criarUsuariosProfessores(professores);
+
+                CoordenadorBusiness coordenadorBusiness = new CoordenadorBusiness(unidadeDeTrabalho);
+                ICollection<Coordenador> coordenadores = coordenadorBusiness.buscarTodos();
+                usuarioBusiness.criarUsuariosCoordenadores(coordenadores);
                 ViewBag.Message = "Banco criado com sucesso!";
             }
             return View();
