@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using TrabalhoASW.Models;
 using TrabalhoASW.Models.Repository;
 
@@ -30,6 +31,25 @@ namespace TrabalhoASW.Controllers.Business
                 repositorio.context.disciplinas.Add(disciplina);
             }
             repositorio.salva();
+        }
+
+        public List<SelectListItem> BuscarTodos()
+        {
+            List<Disciplina> disciplinas = new List<Disciplina>();
+            List<SelectListItem> listaRetorno = new List<SelectListItem>();
+
+            disciplinas = repositorio.buscarTodos().ToList();
+
+            foreach (var item in disciplinas)
+            {
+                listaRetorno.Add(new SelectListItem
+                {
+                    Value = item.disciplinaId.ToString(),
+                    Text = item.nome
+                });
+            }
+
+            return listaRetorno;
         }
     }
 }
