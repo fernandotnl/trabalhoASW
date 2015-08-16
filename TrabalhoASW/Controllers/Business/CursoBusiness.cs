@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using TrabalhoASW.Models;
 using TrabalhoASW.Models.Repository;
 
@@ -50,6 +51,26 @@ namespace TrabalhoASW.Controllers.Business
             repositorio.context.Entry(coordenador).State = EntityState.Modified;
 
             repositorio.salva();
+        }
+
+        public List<SelectListItem> BuscarTodos()
+        {
+            List<Curso> cursos = new List<Curso>();
+            List<SelectListItem> listaRetorno = new List<SelectListItem>();
+
+            cursos = repositorio.buscarTodos().ToList();
+
+            foreach (var item in cursos)
+            {
+                listaRetorno.Add(new SelectListItem
+                {
+                    Value = item.cursoId.ToString(),
+                    Text = item.nome
+                });
+            }
+
+            return listaRetorno;
+
         }
     }
 }

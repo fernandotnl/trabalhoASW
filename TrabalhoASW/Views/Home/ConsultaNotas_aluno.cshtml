@@ -1,5 +1,69 @@
-﻿@{
+﻿@using TrabalhoASW.Models
+@using TrabalhoASW.ViewModel
+@{
     ViewBag.Title = "Consulta de Notas - Aluno";
+
+    IEnumerable<SelectListItem> listaCurso = null;
+    IEnumerable<SelectListItem> listaDisciplina = null;
+    List<Nota> listaNotas = new List<Nota>();
+
+    listaNotas = ViewBag.Notas;
+    listaCurso = ViewBag.Cursos;
+    listaDisciplina = ViewBag.Disciplinas;
 }
-<h2>@ViewBag.Title</h2>
-<h3>@ViewBag.Message</h3>
+
+@model AlunoModel
+
+@using (Html.BeginForm())
+{
+    <div class="row" style="padding-top:50px">
+        <fieldset>
+            <legend>Filtros para consulta</legend>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    @Html.Label("Disciplina:", new { @class = "control-label" })
+                    @Html.DropDownListFor(model => model.Disciplina, listaDisciplina, "Selecione...", new { @class = "form-control", @style = "width:100%" })
+                </div>
+                <div class="col-sm-2">
+                    @Html.Label("Data Início:", new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.DataInicio, null, new { @class = "form-control" })
+                </div>
+                <div class="col-sm-2">
+                    @Html.Label("Data Fim:", new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.DataFim, null, new { @class = "form-control" })
+                </div>
+                <div class="col-sm-1" style="padding-top: 25px;">
+                    <button type="submit" class="btn btn-success" id="btnPesquisar">
+                        <span class="glyphicon glyphicon-search"></span>&nbsp;Pesquisar
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <br /><br />
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="gridNotasCoordenador" class="display table-striped" width="100%">
+                <thead>
+                    <tr>
+                        <th width="20%">Curso</th>
+                        <th width="20%">Disciplina</th>
+                        <th width="20%">Nota</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var result in listaNotas)
+                    {
+                        <tr>
+                            <td width="20%">@result.aluno.curso.nome</td>
+                            <td width="20%">@result.avaliacao.turma.disciplina.nome</td>
+                            <td width="20%">@result.valor</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+

@@ -17,7 +17,7 @@ namespace TrabalhoASW.Models.Repository
 
         public ICollection<Curso> buscarTodos()
         {
-            return new List<Curso>();
+            return this.context.cursos.ToList();
         }
         public void salva()
         {

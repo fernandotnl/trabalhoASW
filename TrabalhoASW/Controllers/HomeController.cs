@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
 using TrabalhoASW.Models.Repository;
+using TrabalhoASW.ViewModel;
 
 namespace TrabalhoASW.Controllers
 {
@@ -70,21 +71,117 @@ namespace TrabalhoASW.Controllers
         [Authorize(Roles="Aluno")]
         public ActionResult ConsultaNotas_aluno()
         {
-            ViewBag.Message = "Página de consulta do aluno.";
+            UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
+            CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
+            DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
+
+            ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
+            ViewBag.Cursos = cursoBusiness.BuscarTodos();
+            ViewBag.Notas = new List<Nota>();
 
             return View();
         }
+
+        [Authorize(Roles = "Aluno")]
+        [HttpPost]
+        public ActionResult ConsultaNotas_aluno(AlunoModel viewModel)
+        {
+
+            UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
+            CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
+            DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
+            NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
+
+            List<Nota> notas = notaBusiness.buscarTodos().OrderBy(o => o.aluno.pessoa.nome).ToList();
+
+            ViewBag.Notas = notas;
+            ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
+            ViewBag.Cursos = cursoBusiness.BuscarTodos();
+
+            return View();
+        }
+
         [Authorize(Roles = "Coordenador")]
         public ActionResult ConsultaNotas_coordenador()
         {
-            ViewBag.Message = "Página de consulta do coordenador.";
+            UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
+            CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
+            DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
+
+            ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
+            ViewBag.Cursos = cursoBusiness.BuscarTodos();
+            ViewBag.Notas = new List<Nota>();
 
             return View();
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Coordenador")]
+        public ActionResult ConsultaNotas_coordenador(CoordenadorModel viewModel)
+        {
+            UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
+            CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
+            DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
+            NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
+
+            List<Nota> notas = notaBusiness.buscarTodos().OrderBy(o => o.aluno.pessoa.nome).ToList();
+
+            ViewBag.Notas = notas;
+            ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
+            ViewBag.Cursos = cursoBusiness.BuscarTodos();
+
+            return View();
+        }
+
         [Authorize(Roles = "Secretario")]
         public ActionResult ConsultaNotas_secretario()
         {
-            ViewBag.Message = "Página de consulta do secretario.";
+            ViewBag.Erro = false;
+
+            UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
+            CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
+            DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
+
+            ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
+            ViewBag.Cursos = cursoBusiness.BuscarTodos();
+            ViewBag.Notas = new List<Nota>();
+
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Secretario")]
+        public ActionResult ConsultaNotas_secretario(SecretariaModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewBag.Erro = false;
+
+                UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
+                CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
+                DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
+                NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
+
+                List<Nota> notas = notaBusiness.buscarTodos().OrderBy(o => o.aluno.pessoa.nome).ToList();
+
+                ViewBag.Notas = notas;
+                ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
+                ViewBag.Cursos = cursoBusiness.BuscarTodos();
+            }
+            else
+            {
+                ViewBag.Erro = true;
+
+                UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
+                CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
+                DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
+
+                ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
+                ViewBag.Cursos = cursoBusiness.BuscarTodos();
+                ViewBag.Notas = new List<Nota>();
+
+                return View();
+            }
 
             return View();
         }
