@@ -144,7 +144,7 @@ namespace TrabalhoASW.Controllers
             if (viewModel.DataFim != null)
             dataFim = DateTime.ParseExact(viewModel.DataFim, "dd/MM/yyyy",
                                        System.Globalization.CultureInfo.InvariantCulture);
-            List<Nota> notas = notaBusiness.consultarNotasPorFiltros(viewModel.Curso, viewModel.Aluno, viewModel.Disciplina, dataInicio, dataFim).OrderBy(o => o.aluno.pessoa.nome).ToList();
+            List<Nota> notas = notaBusiness.consultarNotasPorFiltros(viewModel.Curso, viewModel.Aluno, viewModel.Disciplina, dataInicio, dataFim).ToList();
 
            
             //List<Nota> notas = notaBusiness.buscarTodos().OrderBy(o => o.aluno.pessoa.nome).ToList();
