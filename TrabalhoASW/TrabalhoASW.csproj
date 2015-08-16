@@ -193,7 +193,21 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Security\FiltroPerfil.cs" />
     <Compile Include="Controllers\Security\Usuario.cs" />
+    <Compile Include="Controllers\Testes\AlunoTest.cs" />
+    <Compile Include="Controllers\Testes\AvaliacaoTest.cs" />
+    <Compile Include="Controllers\Testes\CoordenadorTest.cs" />
+    <Compile Include="Controllers\Testes\CursoTest.cs" />
+    <Compile Include="Controllers\Testes\DisciplinaTest.cs" />
+    <Compile Include="Controllers\Testes\EnderecoTest.cs" />
+    <Compile Include="Controllers\Testes\MatriculaTest.cs" />
+    <Compile Include="Controllers\Testes\NotaTest.cs" />
     <Compile Include="Controllers\Testes\NUnitTests.cs" />
+    <Compile Include="Controllers\Testes\PeriodoTest.cs" />
+    <Compile Include="Controllers\Testes\PessoaTest.cs" />
+    <Compile Include="Controllers\Testes\ProfessorTest.cs" />
+    <Compile Include="Controllers\Testes\TurmaTest.cs" />
+    <Compile Include="Controllers\Testes\UniversidadeTest.cs" />
+    <Compile Include="Controllers\Testes\UsuariosTest.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
