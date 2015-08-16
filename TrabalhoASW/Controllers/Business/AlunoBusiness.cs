@@ -35,5 +35,9 @@ namespace TrabalhoASW.Controllers.Business
         {
             return repositorio.buscarTodos();
         }
+        public Aluno buscarAlunoPorEmail(String email)
+        {
+            return repositorio.buscarAlunoPorEmail(email);
+        }
     }
 }

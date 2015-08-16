@@ -24,6 +24,16 @@ namespace TrabalhoASW.Models.Repository
             todosAlunos = consulta.ToList<Aluno>();
             return todosAlunos;
         }
+        public Aluno buscarAlunoPorEmail(String email)
+        {
+            DbSet<Aluno> alunos = context.alunos;
+            DbSet<Pessoa> pessoas = context.pessoas;
+            var consulta = (from aluno in alunos
+                           join pessoa in pessoas on aluno.pessoa.pessoaId equals pessoa.pessoaId
+                           where pessoa.email == email
+                           select aluno);
+            return consulta.FirstOrDefault();
+        }
         public void salva()
         {
             this.context.SaveChanges();
