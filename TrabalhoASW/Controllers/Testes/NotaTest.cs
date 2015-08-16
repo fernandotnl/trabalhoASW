@@ -74,7 +74,7 @@ namespace TrabalhoASW.Controllers.Testes
             Turma turma = new Turma();
 
             turma.turmaId = 1;
-            turma.codigo = "";
+            turma.codigo = "turma0";
             turma.turmaId = 1;
             turma.periodoId = 1;
             turma.periodo = MockPeriodo();
@@ -82,7 +82,7 @@ namespace TrabalhoASW.Controllers.Testes
             turma.disciplinaId = 1;
             turma.disciplina = MockDisciplina();
 
-            return new Turma();
+            return turma;
         }
 
         [Test]
@@ -94,7 +94,7 @@ namespace TrabalhoASW.Controllers.Testes
             Models.Aluno aluno = MockAluno();
             Models.Avaliacao avaliacao = MockAvaliacao();
 
-            Assert.Throws<Exception>(() => notaBusiness.criaNota(aluno, 100, avaliacao));
+            Assert.DoesNotThrow(() => notaBusiness.criaNota(aluno, 100, avaliacao));
         }
 
         [Test]
@@ -103,7 +103,7 @@ namespace TrabalhoASW.Controllers.Testes
             UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
             NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
 
-            Assert.Throws<Exception>(() => notaBusiness.buscarTodos());
+            Assert.DoesNotThrow(() => notaBusiness.buscarTodos());
         }
 
         [Test]
