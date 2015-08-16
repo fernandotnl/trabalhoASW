@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.ComponentModel.DataAnnotations;
 
 namespace TrabalhoASW.ViewModel
 {
-    public class CoordenadorModel
+    public class AlunoModel
     {
-        public String Curso { get; set; }
-
         public String Disciplina { get; set; }
 
         [DisplayFormat(DataFormatString = "99/99/9999")]
@@ -17,9 +15,5 @@ namespace TrabalhoASW.ViewModel
 
         [DisplayFormat(DataFormatString = "99/99/9999")]
         public String DataFim { get; set; }
-
-        public String Aluno { get; set; }
-
-        public String Matricula { get; set; }
     }
 }

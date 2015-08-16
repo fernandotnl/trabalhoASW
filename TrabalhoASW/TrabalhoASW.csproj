@@ -232,7 +232,9 @@
     <Compile Include="Models\Repository\UniversidadeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\AlunoModel.cs" />
     <Compile Include="ViewModel\CoordenadorModel.cs" />
+    <Compile Include="ViewModel\SecretariaModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
