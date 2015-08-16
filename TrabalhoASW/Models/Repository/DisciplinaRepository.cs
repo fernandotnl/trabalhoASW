@@ -17,7 +17,7 @@ namespace TrabalhoASW.Models.Repository
 
         public ICollection<Disciplina> buscarTodos()
         {
-            return new List<Disciplina>();
+            return this.context.disciplinas.ToList();
         }
         public void salva()
         {

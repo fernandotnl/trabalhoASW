@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
 using TrabalhoASW.Models.Repository;
+using TrabalhoASW.ViewModel;
 
 namespace TrabalhoASW.Controllers
 {
@@ -70,17 +71,48 @@ namespace TrabalhoASW.Controllers
         [Authorize(Roles="Aluno")]
         public ActionResult ConsultaNotas_aluno()
         {
-            ViewBag.Message = "Página de consulta do aluno.";
+            
 
             return View();
         }
         [Authorize(Roles = "Coordenador")]
         public ActionResult ConsultaNotas_coordenador()
         {
-            ViewBag.Message = "Página de consulta do coordenador.";
+            UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
+            CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
+            DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
+
+            ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
+            ViewBag.Cursos = cursoBusiness.BuscarTodos();
+            ViewBag.Notas = new List<Nota>();
 
             return View();
         }
+
+        [HttpPost]
+        [Authorize(Roles = "Coordenador")]
+        public ActionResult ConsultaNotas_coordenador(CoordenadorModel viewModel)
+        {
+            UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
+            CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
+            DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
+            NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
+
+            List<Nota> notas =notaBusiness.buscarTodos().ToList();
+
+            //ViewBag.Notas = notas.Where(w =>
+            //     w.avaliacao.turma.disciplina.disciplinaId == Convert.ToInt32(viewModel.Disciplina)
+            //    && w.avaliacao.turma.periodo.dataInicio == Convert.ToDateTime(viewModel.DataInicio)
+            //    && w.avaliacao.turma.periodo.dataInicio == Convert.ToDateTime(viewModel.DataFim)).ToList();
+
+            ViewBag.Notas = notas;
+            ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
+            ViewBag.Cursos = cursoBusiness.BuscarTodos();
+
+            return View();
+        }
+
+
         [Authorize(Roles = "Secretario")]
         public ActionResult ConsultaNotas_secretario()
         {
