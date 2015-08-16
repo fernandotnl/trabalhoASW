@@ -27,5 +27,20 @@ namespace TrabalhoASW.Models
         public virtual ICollection<Turma> turmas { get; set; }
         public virtual ICollection<Nota> notas { get; set; }
 
+        public virtual Matricula Matricula
+        {
+            get
+            {
+                foreach (Matricula matricula in pessoa.matriculas)
+                {
+                    if (matricula.tipoMatricula.Equals(TipoMatricula.ALUNO))
+                    {
+                        return matricula;
+                    }
+                }
+                return null;
+            }
+        }
+
     }
 }

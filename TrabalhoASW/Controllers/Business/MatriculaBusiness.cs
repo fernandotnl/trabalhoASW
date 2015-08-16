@@ -33,5 +33,10 @@ namespace TrabalhoASW.Controllers.Business
             }
             repositorio.salva();
         }
+
+        public Matricula buscarMatriculaPorEmail(String email)
+        {
+            return repositorio.buscarMatriculaPorEmail(email);
+        }
     }
 }

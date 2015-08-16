@@ -19,33 +19,36 @@
     <div class="row" style="padding-top:50px">
         <fieldset>
             <legend>Filtros para consulta</legend>
-
+            
             <div class="row">
                 <div class="col-sm-3">
+                    @Html.Label("Aluno (Matrícula):", new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.Aluno, new { @class = "form-control" })
+                </div>     
+                <div class="col-sm-3">
                     @Html.Label("Curso:", new { @class = "control-label" })
-                    @Html.DropDownListFor(model=>model.Curso, listaCurso, "Selecione...", new { @class = "form-control", @style = "width:100%" })
+                    @Html.DropDownListFor(model => model.Curso, listaCurso, "Selecione...", new { @class = "form-control", @style = "width:100%" })
                 </div>
                 <div class="col-sm-3">
                     @Html.Label("Disciplina:", new { @class = "control-label" })
-                    @Html.DropDownListFor(model=>model.Disciplina, listaDisciplina, "Selecione...", new { @class = "form-control", @style = "width:100%" })
-                </div>
-
+                    @Html.DropDownListFor(model => model.Disciplina, listaDisciplina, "Selecione...", new { @class = "form-control", @style = "width:100%" })
+                </div>           
+            </div>
+            <br />
+          
+            <div class="row">
                 <div class="col-sm-2">
                     @Html.Label("Data Início:", new { @class = "control-label" })
-                    @Html.TextBoxFor(model=>model.DataInicio, null, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.DataInicio, null, new { @class = "form-control" })
                 </div>
                 <div class="col-sm-2">
                     @Html.Label("Data Fim:", new { @class = "control-label" })
                     @Html.TextBoxFor(model => model.DataFim, null, new { @class = "form-control" })
                 </div>
-                
+
             </div>
             <br />
             <div class="row">
-                <div class="col-sm-3">
-                        @Html.Label("Aluno (Matrícula):", new { @class = "control-label" })
-                        @Html.TextBoxFor(model => model.Aluno, new { @class = "form-control" })
-                </div>
                 <div class="col-sm-1" style="padding-top: 25px;">
                     <button type="submit" class="btn btn-success" id="btnPesquisar">
                         <span class="glyphicon glyphicon-search"></span>&nbsp;Pesquisar
@@ -60,22 +63,28 @@
                     <table id="gridNotasCoordenador" class="display table-striped"  width="100%">
                         <thead>
                             <tr>
-                                <th width="30%">Aluno</th>
-                                <th width="10%">Matrícula</th>
-                                <th width="20%">Curso</th>
-                                <th width="20%">Disciplina</th>
-                                <th width="20%">Nota</th>
+                                <th width="20%">Aluno</th>
+                                <th width="7%">Matrícula</th>
+                                <th width="13%">Curso</th>
+                                <th width="17%">Disciplina</th>
+                                <th width="12%">Avaliacao</th>
+                                <th width="7%">Nota</th>
+                                <th width="14%">Data Inicio</th>
+                                <th width="14%">Data Fim</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var result in listaNotas)
                             {
                                 <tr>
-                                    <td width="30%">@result.aluno.pessoa.nome</td>
-                                    <td width="10%">@result.aluno.alunoId.ToString()</td>
-                                    <td width="20%">@result.aluno.curso.nome</td>
-                                    <td width="20%">@result.avaliacao.turma.disciplina.nome</td>
-                                    <td width="20%">@result.valor</td>
+                                    <td width="20%">@result.aluno.pessoa.nome</td>
+                                    <td width="7%">@result.aluno.Matricula.matriculaId</td>
+                                    <td width="13%">@result.aluno.curso.nome</td>
+                                    <td width="17%">@result.avaliacao.turma.disciplina.nome</td>
+                                    <td width="12%">@result.avaliacao.nome</td>
+                                    <td width="7%">@result.valor</td>
+                                    <td width="14%">@String.Format("{0:dd/MM/yyyy}", @result.avaliacao.turma.periodo.dataInicio)</td>
+                                    <td width="14%">@String.Format("{0:dd/MM/yyyy}", @result.avaliacao.turma.periodo.dataFim)</td>
                                 </tr>
                             }
                         </tbody>

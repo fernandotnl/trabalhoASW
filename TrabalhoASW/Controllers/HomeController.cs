@@ -18,6 +18,7 @@ namespace TrabalhoASW.Controllers
     public class HomeController : Controller
     {
 
+        
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager
         {
@@ -116,10 +117,10 @@ namespace TrabalhoASW.Controllers
 
             var nomeUsuario = HttpContext.GetOwinContext().Authentication.User.Identity.GetUserName();
 
-            AlunoBusiness alunoBusiness = new AlunoBusiness(unidadeDeTrabalho);
-            Int32 idAluno = alunoBusiness.buscarAlunoPorEmail(nomeUsuario).alunoId;
+            MatriculaBusiness matriculaBusiness = new MatriculaBusiness(unidadeDeTrabalho);
+            Int32 matriculaId = matriculaBusiness.buscarMatriculaPorEmail(nomeUsuario).matriculaId;
 
-            List<Nota> notas = notaBusiness.consultarNotasPorFiltros(0, idAluno, Convert.ToInt32(viewModel.Disciplina), dataInicio, dataFim).ToList();
+            List<Nota> notas = notaBusiness.consultarNotasPorFiltros(0, matriculaId, viewModel.Disciplina, dataInicio, dataFim).ToList();
 
             ViewBag.Notas = notas;
             ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
@@ -154,14 +155,11 @@ namespace TrabalhoASW.Controllers
             DateTime dataFim = DateTime.MaxValue;
             if (viewModel.DataInicio != null)
                 dataInicio = DateTime.ParseExact(viewModel.DataInicio, "dd/MM/yyyy",
-                                       System.Globalization.CultureInfo.InvariantCulture);
+                                        System.Globalization.CultureInfo.InvariantCulture);
             if (viewModel.DataFim != null)
-            dataFim = DateTime.ParseExact(viewModel.DataFim, "dd/MM/yyyy",
-                                       System.Globalization.CultureInfo.InvariantCulture);
-            List<Nota> notas = notaBusiness.consultarNotasPorFiltros(Convert.ToInt32(viewModel.Curso), Convert.ToInt32(viewModel.Aluno), Convert.ToInt32(viewModel.Disciplina), dataInicio, dataFim).ToList();
-
-           
-            //List<Nota> notas = notaBusiness.buscarTodos().OrderBy(o => o.aluno.pessoa.nome).ToList();
+                dataFim = DateTime.ParseExact(viewModel.DataFim, "dd/MM/yyyy",
+                                            System.Globalization.CultureInfo.InvariantCulture);
+            List<Nota> notas = notaBusiness.consultarNotasPorFiltros(viewModel.Curso, viewModel.Aluno, viewModel.Disciplina, dataInicio, dataFim).ToList();
 
             ViewBag.Notas = notas;
             ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
@@ -190,44 +188,25 @@ namespace TrabalhoASW.Controllers
         [Authorize(Roles = "Secretario")]
         public ActionResult ConsultaNotas_secretario(SecretariaModel viewModel)
         {
-            if (ModelState.IsValid)
-            {
-                ViewBag.Erro = false;
+            UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
+            CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
+            DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
+            NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
 
-                UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
-                CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
-                DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
-                NotaBusiness notaBusiness = new NotaBusiness(unidadeDeTrabalho);
-
-                DateTime dataInicio = DateTime.MinValue;
-                DateTime dataFim = DateTime.MaxValue;
-                if (viewModel.DataInicio != null)
-                    dataInicio = DateTime.ParseExact(viewModel.DataInicio, "dd/MM/yyyy",
-                                           System.Globalization.CultureInfo.InvariantCulture);
-                if (viewModel.DataFim != null)
-                    dataFim = DateTime.ParseExact(viewModel.DataFim, "dd/MM/yyyy",
-                                               System.Globalization.CultureInfo.InvariantCulture);
-                List<Nota> notas = notaBusiness.consultarNotasPorFiltros(Convert.ToInt32(viewModel.Curso), Convert.ToInt32(viewModel.Aluno), Convert.ToInt32(viewModel.Disciplina), dataInicio, dataFim).ToList();
+            DateTime dataInicio = DateTime.MinValue;
+            DateTime dataFim = DateTime.MaxValue;
+            if (viewModel.DataInicio != null)
+                dataInicio = DateTime.ParseExact(viewModel.DataInicio, "dd/MM/yyyy",
+                                        System.Globalization.CultureInfo.InvariantCulture);
+            if (viewModel.DataFim != null)
+                dataFim = DateTime.ParseExact(viewModel.DataFim, "dd/MM/yyyy",
+                                            System.Globalization.CultureInfo.InvariantCulture);
+            List<Nota> notas = notaBusiness.consultarNotasPorFiltros(viewModel.Curso, viewModel.Aluno, viewModel.Disciplina, dataInicio, dataFim).ToList();
 
 
-                ViewBag.Notas = notas;
-                ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
-                ViewBag.Cursos = cursoBusiness.BuscarTodos();
-            }
-            else
-            {
-                ViewBag.Erro = true;
-
-                UnidadeDeTrabalho unidadeDeTrabalho = new UnidadeDeTrabalho();
-                CursoBusiness cursoBusiness = new CursoBusiness(unidadeDeTrabalho);
-                DisciplinaBusiness disciplinaBusiness = new DisciplinaBusiness(unidadeDeTrabalho);
-
-                ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
-                ViewBag.Cursos = cursoBusiness.BuscarTodos();
-                ViewBag.Notas = new List<Nota>();
-
-                return View();
-            }
+            ViewBag.Notas = notas;
+            ViewBag.Disciplinas = disciplinaBusiness.BuscarTodos();
+            ViewBag.Cursos = cursoBusiness.BuscarTodos();
 
             return View();
         }

@@ -15,8 +15,10 @@ namespace TrabalhoASW.Models
         //[Required, MaxLength(25), MinLength(3)]
         public string nome { get; set; }
         [Required]
+        [DisplayFormat(DataFormatString = "99/99/9999")]
         public DateTime dataInicio { get; set; }
         [Required]
+        [DisplayFormat(DataFormatString = "99/99/9999")]
         public DateTime dataFim { get; set; }
     }
 }

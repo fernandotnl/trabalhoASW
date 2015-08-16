@@ -83,11 +83,6 @@ namespace TrabalhoASW.Models
                    .HasRequired(coor => coor.curso)
                    .WithOptional(cur => cur.coordenador);
 
-            /*modelBuilder.Entity<Matricula>()
-                  .HasRequired(m => m.pessoa)
-                  .WithMany(p => p.matriculas).WillCascadeOnDelete(true);
-            */
-
             modelBuilder.Entity<Pessoa>()
                         .HasMany<Matricula>(p => p.matriculas)
                         .WithRequired(m => m.pessoa)

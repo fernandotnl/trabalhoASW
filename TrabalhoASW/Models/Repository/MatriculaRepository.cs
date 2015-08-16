@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -38,6 +39,19 @@ namespace TrabalhoASW.Models.Repository
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public Matricula buscarMatriculaPorEmail(String email)
+        {
+            ICollection<Aluno> resultAlunos = new List<Aluno>();
+            DbSet<Aluno> alunos = context.alunos;
+            DbSet<Pessoa> pessoas = context.pessoas;
+            DbSet<Matricula> matriculas = context.matriculas;
+            var consulta = from matricula in matriculas
+                            join pessoa in pessoas on matricula.pessoaId equals pessoa.pessoaId
+                            where pessoa.email == email
+                            select matricula;
+            return consulta.FirstOrDefault();
         }
     }
 }

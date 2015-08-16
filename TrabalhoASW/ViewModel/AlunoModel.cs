@@ -8,12 +8,12 @@ namespace TrabalhoASW.ViewModel
 {
     public class AlunoModel
     {
-        public String Disciplina { get; set; }
+        public Int32 Disciplina { get; set; }
 
-        [DisplayFormat(DataFormatString = "99/99/9999")]
+        [DisplayFormat(DataFormatString = "dd/MM/yyyy")]
         public String DataInicio { get; set; }
 
-        [DisplayFormat(DataFormatString = "99/99/9999")]
+        [DisplayFormat(DataFormatString = "dd/MM/yyyy")]
         public String DataFim { get; set; }
     }
 }

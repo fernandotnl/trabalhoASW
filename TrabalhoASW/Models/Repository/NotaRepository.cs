@@ -193,7 +193,12 @@ namespace TrabalhoASW.Models.Repository
                                 (alunoMatricula == 0|| matricula.matriculaId == alunoMatricula) &&
                                 (idCurso == 0 || curso.cursoId == idCurso)
                            orderby pessoa.nome
-                           select nota).Include(nota => nota.avaliacao.turma.disciplina).Include(nota => nota.aluno);
+                           select nota)
+                           .Include(nota => nota.avaliacao)
+                           .Include(nota => nota.avaliacao.turma.disciplina)
+                           .Include(nota => nota.avaliacao.turma.periodo)
+                           .Include(nota => nota.aluno.pessoa.matriculas)
+                           .Include(nota => nota.aluno);
             notasAlunoPeriodo = consulta.ToList<Nota>();
             return notasAlunoPeriodo;
         }
